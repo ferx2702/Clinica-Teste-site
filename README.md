@@ -1,136 +1,119 @@
-# Secretar.IA — landing page para clínicas
+# Secretar.IA
 
-Primeira versão institucional em português brasileiro: Next.js App Router,
-TypeScript, React, Tailwind CSS 4 e ícones Lucide. O nome é provisório.
-Sem backend, analytics, APIs pagas ou dados reais de pacientes.
+Landing page em **HTML, CSS e JavaScript puros**, sem framework ou biblioteca
+no navegador. Os arquivos podem ser abertos diretamente em `index.html`.
+A fonte Manrope (Google Fonts/Fontsource) é hospedada localmente, preservando sua
+licença OFL em `docs/licenses/`, sem requisição externa de fontes.
 
-## Executar
+## Executar e revisar
 
-Requisitos: Node.js 24 LTS, npm e Git.
+Para abrir a página, basta `index.html`. Para servir localmente, testar o envio
+e evitar limitações de origem `file://`, use Node.js 24 LTS:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-O servidor de desenvolvimento usa a porta 3000. A produção é exportada em `out/` para hospedagem estática. Para validar:
+O servidor local usa a porta 3000. As dependências npm servem apenas para
+verificação, formatação e testes; nenhuma é carregada pelo site.
 
 ```bash
 npm run lint
+npm run check
 npm run build
-npm run typecheck
 npm test
-npm run start
+npm start
 ```
 
-O teste serve o artefato estático de produção em uma instância exclusiva na porta 3100, que deve estar livre.
-Execute o build antes dos testes. Para instalar o Chromium do Playwright em uma
-máquina local, use `npx playwright install chromium` e defina
-`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` com o caminho do executável, ou ajuste
-`launchOptions` no `playwright.config.ts`. Neste ambiente é usado
-`/usr/bin/chromium`; ele não é um Chrome DevTools MCP.
+O build copia apenas os arquivos públicos para `out/`. O teste inicia um
+servidor de arquivos na porta 3100. Localmente usa `/usr/bin/chromium`; pode ser
+alterado por `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. Em CI, Playwright usa seu
+Chromium instalado por `npx playwright install --with-deps chromium`.
 
-O `.npmrc` direciona o cache ao diretório temporário para não depender de uma
-pasta pessoal gravável no ambiente em nuvem. `package-lock.json` fixa as versões.
+## Onde editar
 
-## Organização
+- `index.html`: textos, seções, título SEO, Open Graph e JSON-LD.
+- `styles.css`: tokens de cor, tipografia, espaçamento e responsividade.
+- `script.js`: menu, validação, Formspree, FAQ nativo e eventos locais.
+- `config.js`: nome, WhatsApp, telefone, e-mail, mensagem do CTA e endpoint.
+- `privacidade.html` e `termos.html`: documentos iniciais, marcados para revisão.
+- `public/fonts/`: fonte WOFF2 local.
+- `scripts/build.mjs`: build sem bundler e geração de robots/sitemap.
+- `.github/workflows/pages.yml`: publicação manual no GitHub Pages.
 
-- `src/app/page.tsx`: conteúdo e seções da página inicial.
-- `src/app/globals.css`: tokens, layouts, responsividade e movimento reduzido.
-- `src/app/layout.tsx`: idioma e metadados SEO.
-- `src/app/privacidade/page.tsx`: aviso inicial de privacidade.
-- `src/components/`: navegação, marca, demonstração fictícia, formulário e rodapé.
-- `src/lib/site.ts`: identidade, contatos e destinos centralizados.
-- `tests/site.spec.ts`: fluxos reais em Chromium desktop e emulação móvel, com axe.
-- `docs/design/`: referências oficiais locais e licenças preservadas.
+Os dados públicos atuais são **Secretar.IA**, **fergasvi@outlook.com** e
+**+55 16 99608-8583**, conforme o novo briefing. A mensagem do CTA é “Olá! Quero
+saber mais sobre a secretária virtual”. O nome dos elementos visíveis é
+atualizado por `config.js`; ao trocar a marca, revise também textos e metadados
+estáticos de `index.html` e das páginas legais, para manter SEO e ausência de JS
+consistentes.
 
-## O que configurar antes de publicar
+## Formulário e conversões
 
-Edite `src/lib/site.ts`: `name`, `email`, `whatsapp` (DDI 55 + DDD + número,
-sem pontuação), `url` (domínio HTTPS real) e, quando disponível, `leadEndpoint`.
-Os botões de demonstração e navegação usam os destinos dessa configuração.
-O botão para visualizar o exemplo navega para a conversa fictícia na página.
-O link WhatsApp só aparece quando o número passa pela validação do formato.
+Mantido o Formspree já fornecido: `https://formspree.io/f/xrperlry`. Não é segredo.
+Envia nome, clínica, especialidade, WhatsApp e mensagem opcional em POST JSON,
+com Accept application/json. **Não solicita e-mail nesta versão**, conforme o
+briefing. Confirme que as regras da sua conta Formspree não exigem campo e-mail.
 
-O formulário pede nome, clínica, especialidade e e-mail, com mensagem opcional.
-Valida campos obrigatórios e não aceita nome/clínica compostos só por espaços.
-Sem `leadEndpoint`, **não envia nem armazena dados** e exibe essa informação
-antes e depois da tentativa. Não simula sucesso. Dados não são persistidos no
-localStorage e há aviso do navegador ao sair com campos alterados.
+Valida DDD + celular brasileiro e campos obrigatórios; mostra erros junto aos
+campos e foca o primeiro inválido. Durante o envio, bloqueia edição e duplicação.
+Só mostra sucesso e emite `generate_lead` após HTTP 2xx e JSON `ok:true`.
+Falhas ou timeout de 15 segundos preservam os dados para tentar novamente.
+Sem JavaScript, o botão de envio fica desativado e os contatos diretos continuam
+visíveis. Sem endpoint configurado, informa indisponibilidade, sem simular envio.
 
-O endpoint público `https://formspree.io/f/xrperlry` está configurado. O envio
-usa POST JSON com `nome`, `clinica`, `especialidade`, `contato`, `mensagem` e
-`email` (cópia do contato, para identificação do remetente no Formspree), com
-Accept application/json. Sucesso e generate_lead só ocorrem após HTTP 2xx e
-JSON com `ok: true`. Há timeout de 15 segundos e os campos são preservados em
-falhas. Nenhuma chave secreta é necessária no frontend.
+Confira ativação, destinatário, antispam e limites do plano no Formspree. Os
+testes interceptam todos os envios e **não geram leads reais**. Uma verificação
+manual no site publicado e no painel/e-mail continua necessária para comprovar
+entrega real. Não envie informações de pacientes no formulário.
 
-No painel Formspree, confirme a ativação do formulário e o destinatário
-fergasvi@outlook.com. Confira notificações, limite do plano e filtros antispam.
-Depois da publicação, faça um envio manual e confira o registro no painel e o
-e-mail (incluindo spam). Os testes automatizados interceptam todas as requisições
-Formspree e não criam leads reais; seu sucesso não comprova entrega de e-mail.
+Mantido o contrato `window` → `clara:conversion`, com payload limitado a `event`
+e `placement`, sem dados dos campos. Eventos: `contact_click`, `whatsapp_click`,
+`phone_click`, `email_click`, `form_attempt`, `form_unavailable`, `form_error` e
+`generate_lead`. Não há provedor externo de analytics ou cookies de rastreamento
+instalados. Integrar GA4/GTM, definir consentimento e validar recebimento dos
+eventos no provedor são tarefas posteriores.
 
-Complete o aviso de privacidade com dados do controlador, contato, base legal,
-fornecedores e política de retenção antes de habilitar coleta. O aviso inicial
-não substitui a definição jurídica/operacional da política da empresa.
+## SEO e publicação gratuita em 3 passos
 
-## Design e verificações
+1. Revise as alterações e envie a branch `main` ao repositório
+   `ferx2702/Clinica-Teste-site`, incluindo `.github/workflows/`, `scripts/` e
+   os arquivos HTML/CSS/JS. Não envie `node_modules`, `out/` ou `.env`.
+2. Em **Settings → Pages**, selecione **GitHub Actions**. O repositório precisa
+   ser público para o uso gratuito conforme o plano GitHub.
+3. Em **Actions → Publicar Secretar.IA no GitHub Pages → Run workflow**, selecione
+   `main`. Aguarde build, testes e deploy; o endereço esperado é
+   **https://ferx2702.github.io/Clinica-Teste-site/**.
 
-Paleta verde profundo, branco frio e lima; componentes responsivos, foco visível,
-menu móvel, HTML semântico e suporte a `prefers-reduced-motion`. Não há clientes,
-depoimentos, métricas comerciais ou integrações inventadas. A conversa é fictícia
-e a confirmação de horários permanece com a equipe.
-
-As instruções de `AGENTS.md` apontam para referências locais; elas não são
-skills nativas instaladas. Nenhum MCP shadcn, Magic/21st ou Chrome DevTools
-estava conectado nesta implementação. Playwright é executado pelo terminal.
-Veja `docs/VALIDATION.md` para resultados e limites das verificações desta versão.
-
-## Revisar e enviar ao GitHub
-
-Nenhum commit, push ou deploy é feito automaticamente por esta implementação.
-Revise os arquivos, configure a identidade e rode as verificações acima.
+O workflow não publica no push: a execução é manual. O build usa `SITE_URL` para
+canonical, Open Graph, schema e sitemap; o valor padrão é o endereço Pages acima.
+`BASE_PATH` só informa ao servidor de testes o subdiretório Pages. Para testar:
 
 ```bash
-git status --short
-git diff --check
-git add AGENTS.md docs src tests .gitignore .npmrc package.json package-lock.json tsconfig.json next-env.d.ts postcss.config.mjs eslint.config.mjs playwright.config.ts README.md
-git diff --cached --stat
-git diff --cached
+npm run build
+BASE_PATH=/Clinica-Teste-site npm test
 ```
 
-Confira o remoto existente com `git remote -v` na sua máquina e então:
+A home tem H1 único, schema Organization/Service e index,follow. Páginas legais
+são noindex,follow e ficam fora do sitemap. A URL antiga `/privacidade/` redireciona
+para `privacidade.html` no artefato exportado. No Pages de projeto, robots.txt
+no subdiretório não controla o host inteiro; consulte `docs/GITHUB-PAGES.md`.
 
-```bash
-git switch -c feat/landing-clinicas
-git commit -m "Cria landing page institucional para clínicas"
-git push -u origin feat/landing-clinicas
-```
+## O que ainda preencher ou validar
 
-Abra um pull request dessa branch para `main` no GitHub. Como o remoto estava
-vazio, talvez seja necessário publicar primeiro a branch inicial e definir
-`main` como branch padrão, em vez de abrir PR imediatamente. Não force push.
-Após revisão, escolha uma hospedagem compatível com Next.js e configure domínio,
-contatos e integração de leads. **Nada foi publicado em produção nesta tarefa.**
+- Preços e setup dos planos: colchetes são **placeholders**, não oferta real.
+- Logo definitivo (há marca textual), prazos de implantação e eventuais casos
+  reais. Não existem depoimentos, logos de clientes ou números inventados.
+- Identificação jurídica, base legal, retenção e demais termos legais, sinalizados
+  como documentos iniciais. Formalizar a operação é responsabilidade da empresa.
+- Confirmar a capacidade real e o escopo do serviço, a conexão WhatsApp/Google
+  Agenda e as regras da fila antes de ativá-las em uma clínica. A landing page
+  não implementa uma secretária real nem acessa agendas/pacientes.
+- Validar recebimento real no Formspree; WhatsApp/endpoint já estão preenchidos.
 
-Tipografia Manrope hospedada localmente via Fontsource, sob OFL 1.1.
-Licença preservada em `docs/licenses/manrope-OFL.txt`.
-
-## SEO e conversões
-
-Configure `NEXT_PUBLIC_SITE_URL` (veja `.env.example`) antes do build de
-produção. Sem domínio definitivo, o site mantém `noindex`; com domínio válido,
-gera canonical, sitemap e permite indexação. Veja
-[SEO e conversões](docs/SEO-CONVERSIONS.md) para o contrato de eventos locais,
-limitações, configuração de analytics e checklist de publicação. Não há
-plataforma de mensuração conectada nem transmissão de eventos para terceiros.
-
-Identidade atual: **Secretar.IA**, e-mail **fergasvi@outlook.com**,
-telefone e WhatsApp **+55 16 99291-5744**, centralizados em `src/lib/site.ts`.
-Os contatos foram fornecidos pelo responsável; não foram enviadas mensagens
-nem feitas ligações como teste. O domínio público continua pendente.
-
-## GitHub Pages
-
-A hospedagem gratuita escolhida está preparada. Veja [como revisar e publicar no GitHub Pages](docs/GITHUB-PAGES.md). O workflow é manual; nada foi publicado automaticamente.
+As referências oficiais e licenças em `docs/design/` foram preservadas. São
+instruções locais, não skills nativas. Nenhum MCP shadcn, Magic/21st ou Chrome
+DevTools está conectado; a revisão usa Playwright pelo terminal. Documentos
+anteriores em `docs/` registram a implementação Next.js histórica e foram
+superados, no que divergem, por este README e `docs/REDESIGN.md`.

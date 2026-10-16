@@ -123,3 +123,11 @@ atualizado para identificar o processamento externo pelo Formspree.
   ser conferidos pelo responsável no painel Formspree após um envio manual.
 - As regras atuais de web-design-guidelines foram consultadas para revisar os
   estados e avisos; não houve mudança de layout ou identidade visual.
+
+## Nova versão sem framework
+
+A documentação técnica acima registra versões históricas. A implementação atual
+foi refeita em index.html, styles.css, script.js e config.js, com páginas legais
+simples. Os resultados e limites atuais estão em REDESIGN.md. WhatsApp atualizado
+conforme o novo briefing para +5516996088583, mantendo fergasvi@outlook.com e o
+endpoint Formspree já fornecido. O formulário agora recebe WhatsApp, sem e-mail.

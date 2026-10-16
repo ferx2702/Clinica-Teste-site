@@ -1,5 +1,8 @@
 # SEO, indexação e conversões
 
+> Registro da versão anterior em Next.js. A versão atual usa HTML/CSS/JS puros.
+> Consulte `README.md` e `REDESIGN.md` para configuração e validação atuais.
+
 ## Identidade de busca
 
 Título inicial: **IA para clínicas em Ribeirão Preto | Secretar.IA**.

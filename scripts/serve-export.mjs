@@ -2,8 +2,8 @@
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
-const root = resolve("out");
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const root = resolve(process.argv.includes("--source") ? "." : "out");
+const prefix = process.env.BASE_PATH || "";
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",

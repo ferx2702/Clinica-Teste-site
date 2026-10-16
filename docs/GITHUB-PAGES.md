@@ -1,68 +1,34 @@
-# Hospedagem gratuita no GitHub Pages
+# GitHub Pages — versão HTML/CSS/JavaScript
 
-Repositório escolhido: `https://github.com/ferx2702/Clinica-Teste-site.git`.
-Endereço esperado após ativação e publicação bem-sucedida:
-`https://ferx2702.github.io/Clinica-Teste-site/`.
-O endereço do repositório armazena o código; GitHub Pages hospeda o site.
-Nenhum domínio pago é necessário. GitHub Pages está disponível gratuitamente
-para repositórios públicos; para privados, confirme a elegibilidade do plano.
+A versão atual é estática e usa HTML, CSS e JavaScript puros. O procedimento de
+publicação é gratuito para repositórios públicos elegíveis no GitHub.
 
-## Preparação já concluída
+1. Envie os arquivos revisados ao repositório `ferx2702/Clinica-Teste-site`.
+2. Escolha GitHub Actions em Settings → Pages.
+3. Execute Actions → Publicar Secretar.IA no GitHub Pages → Run workflow, branch main.
 
-- `next.config.ts`: exportação estática para `out/`, URLs com barra final e
-  basePath configurável. Não usa servidor Next.js em produção.
-- Links, assets, canonical, JSON-LD e sitemap respeitam o subdiretório.
-- `.github/workflows/pages.yml`: build, lint, tipos e teste do artefato estático,
-  seguidos da publicação oficial por GitHub Actions.
-- O workflow é **manual** (`workflow_dispatch`): enviar código não dispara deploy.
-- Credenciais usam apenas o token temporário fornecido pelo GitHub Actions.
-  Não é necessário cadastrar token pessoal ou pagar serviço.
-
-## Revisar e publicar
-
-1. Envie os arquivos do projeto para o repositório, incluindo `.github/workflows/`,
-   `scripts/`, `next.config.ts`, `playwright.pages.config.ts`, `public/` e lockfile.
-   O README contém instruções de revisão/commit/push; não envie `.env`, `.next/`,
-   `node_modules/` ou `out/`. O workflow gera os arquivos estáticos.
-2. O workflow deve estar na branch padrão. Em **Settings → Pages**, escolha
-   **GitHub Actions** como fonte. Se Pages não estiver disponível, confira
-   visibilidade pública e permissões do proprietário/organização.
-3. Em **Actions → Publicar Secretar.IA no GitHub Pages → Run workflow**, selecione
-   a branch revisada e execute. Essa etapa publica o site na internet.
-4. Aguarde todos os jobs terminarem e abra a URL fornecida pelo job de deploy.
-   Confira os links WhatsApp, telefone e e-mail e o aviso do formulário.
-
-O workflow ainda não foi enviado ou executado no GitHub nesta tarefa. Não há
-confirmação de que Pages está habilitado nem de que a URL já está publicada.
-A disponibilidade dos minutos gratuitos de Actions depende da conta e do plano;
-nenhum serviço foi contratado.
-
-## Validar o mesmo build localmente
+O workflow executa npm ci, lint, check, build e testes no subdiretório Pages,
+publicando apenas `out/`. É manual e não dispara no push. A URL esperada é
+`https://ferx2702.github.io/Clinica-Teste-site/`. Os links e assets são relativos,
+funcionando no domínio raiz e no subdiretório, sem basePath de framework.
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://ferx2702.github.io NEXT_PUBLIC_BASE_PATH=/Clinica-Teste-site npm run build
-npm run test:pages
-NEXT_PUBLIC_BASE_PATH=/Clinica-Teste-site npm run start
+npm ci
+npm run build
+BASE_PATH=/Clinica-Teste-site npm test
+BASE_PATH=/Clinica-Teste-site npm start
 ```
 
-O último comando inicia um servidor de arquivos local na porta 3000. Para
-trabalhar na raiz durante desenvolvimento, use `npm run dev` sem essas variáveis.
-Para a suíte completa local na raiz, execute `npm run build` sem as variáveis e
-então `npm test`. Os testes iniciam seu próprio servidor estático na porta 3100.
+O servidor local usa a porta 3000; o runner reserva a 3100. `SITE_URL` altera URLs
+de SEO no build (incluindo canonical, Open Graph, JSON-LD e sitemap). Os arquivos
+originais já contêm o endereço Pages e podem ser abertos diretamente.
 
-## SEO e limites
+A home é indexável, e os documentos legais provisórios usam noindex. O sitemap
+contém só a home. O robots.txt em `/Clinica-Teste-site/robots.txt` não substitui
+`https://ferx2702.github.io/robots.txt`, procurado pelo buscador na raiz do host.
+Este repositório não controla a raiz do usuário; pode-se cadastrar o sitemap
+explicitamente na ferramenta de webmaster do buscador.
 
-A URL Pages fica configurada no workflow de build, liberando `index, follow`,
-canonical e sitemap só nessa versão. No build local sem domínio, mantém noindex.
-O sitemap publicado estará em
-`https://ferx2702.github.io/Clinica-Teste-site/sitemap.xml`.
-Em um Pages de projeto, o robô procura `robots.txt` na raiz do host
-(`https://ferx2702.github.io/robots.txt`), que este repositório não controla.
-O `robots.txt` no subdiretório não substitui o arquivo da raiz. O meta robots
-continua presente em cada página; cadastre o sitemap explicitamente na ferramenta
-do buscador quando quiser acompanhar a indexação.
-
-GitHub Pages não executa APIs/backend. O formulário envia diretamente ao Formspree
-configurado em `site.leadEndpoint`; não há necessidade de backend próprio. Confira
-a ativação do formulário e o destinatário no painel do serviço.
-Eventos de analytics continuam locais até definir e configurar o provedor.
+Formspree recebe o formulário diretamente, sem backend no Pages. Nenhuma
+mensagem ou ligação é disparada por nossos testes. A conclusão do workflow e a
+entrega de leads precisam ser verificadas depois da publicação real.

@@ -1,15 +1,14 @@
 {
-  "note": "Medição local no Chromium, sem limitação de CPU/rede, uma navegação por perfil. Não representa dados de usuários reais.",
+  "note": "Uma navegação local por perfil, sem limitação de CPU/rede, Chromium com movimento reduzido. Não representa Core Web Vitals de campo.",
   "results": [
     {
       "name": "desktop",
       "width": 1440,
       "height": 1000,
       "cls": 0,
-      "lcpMs": 228,
-      "fcpMs": 228,
+      "lcpMs": 204,
       "fontRequests": 1,
-      "fontPreloads": 1,
+      "requests": 5,
       "horizontalOverflow": false
     },
     {
@@ -17,10 +16,9 @@
       "width": 390,
       "height": 844,
       "cls": 0,
-      "lcpMs": 152,
-      "fcpMs": 152,
+      "lcpMs": 160,
       "fontRequests": 1,
-      "fontPreloads": 1,
+      "requests": 5,
       "horizontalOverflow": false
     }
   ]

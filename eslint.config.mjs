@@ -1,13 +1,36 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
-export default defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  globalIgnores([
-    ".next/**",
-    "test-results/**",
-    "playwright-report/**",
-    "next-env.d.ts",
-  ]),
-]);
+export default [
+  {
+    ignores: [
+      "out/**",
+      "node_modules/**",
+      ".next/**",
+      "test-results/**",
+      "docs/**",
+    ],
+  },
+  {
+    files: ["**/*.js", "**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: {
+        window: "readonly",
+        Element: "readonly",
+        document: "readonly",
+        console: "readonly",
+        process: "readonly",
+        URL: "readonly",
+        fetch: "readonly",
+        FormData: "readonly",
+        CustomEvent: "readonly",
+        IntersectionObserver: "readonly",
+        AbortController: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+      },
+    },
+    rules: {
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-undef": "error",
+    },
+  },
+];
