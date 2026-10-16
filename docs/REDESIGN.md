@@ -16,7 +16,7 @@ públicos, benefícios esperados, investimento, FAQ, contato e rodapé. Os preç
 prazo de referência, documentos legais e resultados ainda sem evidência estão
 marcados como placeholders. Não há logos de clientes ou depoimentos inventados.
 
-WhatsApp e telefone atualizados para +5516996088583. CTA primário usa a mensagem
+WhatsApp e telefone atualizados para +5516992915744. CTA primário usa a mensagem
 solicitada. O formulário secundário usa nome, clínica, especialidade, WhatsApp e
 mensagem opcional, sem pedir e-mail. Endpoint: https://formspree.io/f/xrperlry.
 

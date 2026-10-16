@@ -64,7 +64,7 @@ test("navegação, hierarquia, SEO e dados estruturados", async ({
     "Organization",
     "Service",
   ]);
-  expect(schema["@graph"][0].telephone).toBe("+5516996088583");
+  expect(schema["@graph"][0].telephone).toBe("+5516992915744");
   expect(schema["@graph"][0]).not.toHaveProperty("aggregateRating");
   if (info.project.name === "mobile") {
     await page.getByRole("button", { name: "Abrir menu" }).click();
@@ -115,7 +115,7 @@ test("novo WhatsApp e eventos sem dados pessoais", async ({ page }) => {
   });
   const link = page.locator(".hero [data-whatsapp]");
   const href = new URL(await link.getAttribute("href"));
-  expect(href.pathname).toBe("/5516996088583");
+  expect(href.pathname).toBe("/5516992915744");
   expect(href.searchParams.get("text")).toBe(
     "Olá! Quero saber mais sobre a secretária virtual",
   );

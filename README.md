@@ -43,7 +43,7 @@ Chromium instalado por `npx playwright install --with-deps chromium`.
 - `.github/workflows/pages.yml`: publicação manual no GitHub Pages.
 
 Os dados públicos atuais são **Secretar.IA**, **fergasvi@outlook.com** e
-**+55 16 99608-8583**, conforme o novo briefing. A mensagem do CTA é “Olá! Quero
+**+55 16 99291-5744**, conforme o novo briefing. A mensagem do CTA é “Olá! Quero
 saber mais sobre a secretária virtual”. O nome dos elementos visíveis é
 atualizado por `config.js`; ao trocar a marca, revise também textos e metadados
 estáticos de `index.html` e das páginas legais, para manter SEO e ausência de JS

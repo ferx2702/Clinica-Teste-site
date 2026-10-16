@@ -129,5 +129,5 @@ atualizado para identificar o processamento externo pelo Formspree.
 A documentação técnica acima registra versões históricas. A implementação atual
 foi refeita em index.html, styles.css, script.js e config.js, com páginas legais
 simples. Os resultados e limites atuais estão em REDESIGN.md. WhatsApp atualizado
-conforme o novo briefing para +5516996088583, mantendo fergasvi@outlook.com e o
+conforme o novo briefing para +5516992915744, mantendo fergasvi@outlook.com e o
 endpoint Formspree já fornecido. O formulário agora recebe WhatsApp, sem e-mail.
