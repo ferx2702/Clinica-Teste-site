@@ -37,11 +37,16 @@ export function LeadForm() {
     try {
       const response = await fetch(site.leadEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ ...fields, email: fields.contato }),
         signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) throw new Error("Falha no envio");
+      const result = await response.json();
+      if (result.ok !== true) throw new Error("Recebimento não confirmado");
       trackConversion("generate_lead");
       setState("success");
       setDirty(false);
@@ -58,7 +63,7 @@ export function LeadForm() {
       <p>Conte um pouco sobre a sua rotina.</p>
       <div className="form-notice" id="form-notice">
         {site.leadEndpoint
-          ? "Não inclua informações de pacientes. Usaremos seus dados para responder ao seu interesse."
+          ? "Seus dados serão enviados pelo Formspree para responder ao seu interesse. Não inclua informações de pacientes."
           : "Formulário em preparação: o envio ainda não está conectado. Seus dados não serão enviados nem armazenados."}
       </div>
       <form

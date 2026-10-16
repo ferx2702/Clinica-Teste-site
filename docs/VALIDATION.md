@@ -101,3 +101,25 @@ O domínio/basePath são aplicados pelo workflow, sem comprar domínio ou hosped
 
 Código ainda não enviado, Pages não habilitado por esta sessão e URL pública
 não validada. Instruções em `GITHUB-PAGES.md`. Não há contratação de serviços.
+
+## Integração Formspree
+
+Endpoint público fornecido pelo responsável: `https://formspree.io/f/xrperlry`.
+Configurados POST JSON, Accept application/json e campo email para identificação
+do remetente. A interface e generate_lead exigem HTTP 2xx com JSON ok:true;
+falhas preservam os campos e permitem tentar novamente. Aviso de privacidade
+atualizado para identificar o processamento externo pelo Formspree.
+
+- Builds local e GitHub Pages concluídos; lint e TypeScript sem erros.
+- 22 testes aprovados na raiz, incluindo validação, carregamento, sucesso,
+  resposta 422, falha de rede, resposta 200 sem confirmação e nova tentativa.
+- 2 testes Pages aprovados no artefato estático (desktop e mobile), com análise
+  axe e navegação de privacidade.
+- Todas as requisições Formspree foram interceptadas nos testes com respostas
+  controladas. Nenhum lead de teste foi enviado à conta real.
+- Uma consulta HEAD sem dados ao endpoint foi bloqueada pelo proxy deste
+  ambiente (CONNECT 403). Isso não estabelece falha do formulário ou da conta.
+  A entrega real, ativação do formulário, destinatário, antispam e limites devem
+  ser conferidos pelo responsável no painel Formspree após um envio manual.
+- As regras atuais de web-design-guidelines foram consultadas para revisar os
+  estados e avisos; não houve mudança de layout ou identidade visual.

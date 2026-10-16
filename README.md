@@ -58,14 +58,18 @@ Sem `leadEndpoint`, **não envia nem armazena dados** e exibe essa informação
 antes e depois da tentativa. Não simula sucesso. Dados não são persistidos no
 localStorage e há aviso do navegador ao sair com campos alterados.
 
-Para receber leads, é necessário um serviço real que aceite POST JSON com
-`nome`, `clinica`, `especialidade`, `contato` e `mensagem`; valide e sanitize
-no servidor, aplique proteção antispam/rate limit e configure CORS para o domínio
-público. A resposta 2xx deve significar recebimento efetivo. Defina retenção,
-controle de acesso e destino de armazenamento. O frontend só mostra sucesso
-após resposta 2xx; possui timeout de 15 segundos e preserva campos em falhas.
-Não configure um serviço que exija segredo no frontend. Um backend mínimo ou
-serviço de formulário pode ser avaliado em tarefa futura, sem contratar agora.
+O endpoint público `https://formspree.io/f/xrperlry` está configurado. O envio
+usa POST JSON com `nome`, `clinica`, `especialidade`, `contato`, `mensagem` e
+`email` (cópia do contato, para identificação do remetente no Formspree), com
+Accept application/json. Sucesso e generate_lead só ocorrem após HTTP 2xx e
+JSON com `ok: true`. Há timeout de 15 segundos e os campos são preservados em
+falhas. Nenhuma chave secreta é necessária no frontend.
+
+No painel Formspree, confirme a ativação do formulário e o destinatário
+fergasvi@outlook.com. Confira notificações, limite do plano e filtros antispam.
+Depois da publicação, faça um envio manual e confira o registro no painel e o
+e-mail (incluindo spam). Os testes automatizados interceptam todas as requisições
+Formspree e não criam leads reais; seu sucesso não comprova entrega de e-mail.
 
 Complete o aviso de privacidade com dados do controlador, contato, base legal,
 fornecedores e política de retenção antes de habilitar coleta. O aviso inicial

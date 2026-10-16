@@ -68,7 +68,7 @@ validação não é lead recebido. Erros nativos de preenchimento não são conv
 Eventos de links representam intenção de contato, não entrega de mensagem ou
 ligação atendida. E-mail, telefone e WhatsApp fornecidos pelo responsável estão configurados em `site.ts`.
 
-**Não há coleta externa configurada.** Para medir em GA4/GTM ou outra plataforma,
+**Não há provedor externo de analytics configurado.** O formulário de contato envia dados ao Formspree, separado destes eventos locais. Para medir em GA4/GTM ou outra plataforma,
 conecte um único listener a esse contrato depois da configuração e do
 consentimento quando aplicável. Carregue o provedor conforme a política definida;
 não crie cookies ou retransmita eventos antes dessa condição. Evite instrumentar
@@ -76,8 +76,7 @@ os mesmos cliques outra vez pelo GTM, causando duplicação. Não persista nem
 reenvie eventos anteriores à autorização.
 
 Use a ferramenta de debug do provedor para conferir recebimento e marcar
-`generate_lead` como conversão principal. Isso permanece pendente, assim como
-a integração real de leads. ID de mensuração público não é uma chave secreta;
+`generate_lead` como conversão principal. A mensuração externa permanece pendente. O endpoint de leads Formspree está configurado, mas a entrega real de e-mail deve ser verificada na conta. ID de mensuração público não é uma chave secreta;
 segredos de APIs nunca pertencem ao frontend.
 
 Para inspecionar localmente (antes da interação):
@@ -88,6 +87,6 @@ window.addEventListener("clara:conversion", ({ detail }) =>
 );
 ```
 
-Os testes exercitam cliques, tentativa sem endpoint, ausência de falso lead e
+Os testes exercitam cliques, falhas de envio, ausência de falso lead e
 payload sem PII. Links temporários criados exclusivamente no teste validam a
 classificação tel/WhatsApp/e-mail; isso não valida um contato comercial real.

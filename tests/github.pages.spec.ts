@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 const prefix = "/Clinica-Teste-site";
 const url = "https://ferx2702.github.io/Clinica-Teste-site/";
@@ -6,6 +6,13 @@ test("exportação Pages: assets, SEO, contato e privacidade no subdiretório", 
   page,
   request,
 }, testInfo) => {
+  await page.route("https://formspree.io/f/xrperlry", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: '{"ok":true}',
+    }),
+  );
   const failures: string[] = [];
   page.on("response", (r) => {
     if (r.status() >= 400) failures.push(`${r.status()} ${r.url()}`);
@@ -54,9 +61,7 @@ test("exportação Pages: assets, SEO, contato e privacidade no subdiretório", 
   await page
     .getByRole("button", { name: "Solicitar demonstração", exact: true })
     .click();
-  await expect(page.getByRole("status")).toContainText(
-    "Nenhum dado foi enviado",
-  );
+  await expect(page.getByRole("status")).toContainText("Solicitação enviada");
   await expect(page.locator('a[href^="https://wa.me/"]')).toHaveCount(1);
   const graph = JSON.parse(
     await page.locator('script[type="application/ld+json"]').innerText(),

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 test("navegação, layout e demonstração fictícia", async ({
   page,
@@ -48,7 +48,9 @@ test("navegação, layout e demonstração fictícia", async ({
   });
   expect(errors).toEqual([]);
 });
-test("campos obrigatórios e envio não integrado honesto", async ({ page }) => {
+test("campos obrigatórios e falha de envio sem falso sucesso", async ({
+  page,
+}) => {
   await page.goto("/#contato");
   await page
     .getByRole("button", { name: "Solicitar demonstração", exact: true })
@@ -79,10 +81,13 @@ test("campos obrigatórios e envio não integrado honesto", async ({ page }) => 
     .getByRole("button", { name: "Solicitar demonstração", exact: true })
     .click();
   await expect(page.getByRole("status")).toContainText(
-    "Nenhum dado foi enviado",
+    "Não foi possível enviar",
   );
-  expect(writes).toEqual([]);
-  await expect(page.locator('a[href*="wa.me"]')).toHaveAttribute("href", /^https:\/\/wa\.me\/5516992915744\?text=/);
+  expect(writes).toEqual(["https://formspree.io/f/xrperlry"]);
+  await expect(page.locator('a[href*="wa.me"]')).toHaveAttribute(
+    "href",
+    /^https:\/\/wa\.me\/5516992915744\?text=/,
+  );
 });
 test("acessibilidade automática e navegação por teclado", async ({ page }) => {
   await page.goto("/");

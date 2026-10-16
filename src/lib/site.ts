@@ -12,7 +12,7 @@ export const site = {
   phone: "+5516992915744", // Telefone comercial em formato internacional, ex.: +55…
   whatsapp: "5516992915744", // DDI + DDD + número, somente dígitos. Ex.: 55…
   url: process.env.NEXT_PUBLIC_SITE_URL || "", // URL pública definitiva, incluindo https://.
-  leadEndpoint: "", // Endpoint HTTPS real que receba e armazene leads; vazio = nenhum envio.
+  leadEndpoint: "https://formspree.io/f/xrperlry", // Endpoint público; não é uma chave secreta.
   links: {
     demo: "#contato",
     preview: "#demonstracao",

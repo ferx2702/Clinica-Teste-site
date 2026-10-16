@@ -28,7 +28,7 @@ export default function Privacy() {
         <h2>Formulário de interesse</h2>
         <p>
           {site.leadEndpoint
-            ? "O formulário está configurado para encaminhar nome, clínica, especialidade, e-mail e mensagem ao serviço de recebimento definido pelo responsável pelo site."
+            ? "Ao enviar, nome, clínica, especialidade, e-mail e mensagem são encaminhados ao Formspree, serviço externo que recebe e processa as solicitações para a Secretar.IA. Esses dados são usados para responder ao seu pedido de contato e apresentar as soluções de automação."
             : "Nesta versão, o formulário não está conectado a um serviço de recebimento. Os campos preenchidos ficam apenas na página aberta: não são enviados ou armazenados pela aplicação."}{" "}
           Não inclua dados de pacientes, informações clínicas ou outros dados
           sensíveis.
@@ -50,13 +50,23 @@ export default function Privacy() {
           às políticas do respectivo fornecedor. Para entrar em contato, use o
           e-mail comercial: <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
-        <h2>Antes de receber dados</h2>
+        <h2>Seus dados e seus direitos</h2>
         <p>
-          O responsável pelo projeto deve completar este aviso com a identidade
-          e o contato do controlador, finalidades e base legal, fornecedores
-          envolvidos, retenção, segurança, compartilhamento e canal para
-          exercício dos direitos previstos na LGPD. A integração de leads deve
-          ser validada antes de habilitar o envio.
+          Para solicitar informações, correção ou exclusão dos dados enviados,
+          entre em contato pelo e-mail{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>. As solicitações
+          podem ficar registradas no Formspree e na caixa de e-mail configurada
+          pelo responsável. O prazo de retenção e a identificação jurídica do
+          controlador ainda devem ser formalizados pela empresa. Não utilize o
+          formulário para enviar dados de pacientes. Consulte também a{" "}
+          <a
+            href="https://formspree.io/legal/privacy-policy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            política de privacidade do Formspree (abre em nova aba)
+          </a>
+          .
         </p>
       </main>
       <Footer />

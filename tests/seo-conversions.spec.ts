@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import { publicOrigin } from "../src/lib/seo";
 const configured = process.env.NEXT_PUBLIC_SITE_URL
   ? publicOrigin(process.env.NEXT_PUBLIC_SITE_URL)
@@ -101,7 +101,7 @@ test("eventos locais sem PII e sem conversão falsa", async ({ page }) => {
     .getByRole("button", { name: "Solicitar demonstração", exact: true })
     .click();
   await expect(page.getByRole("status")).toContainText(
-    "Nenhum dado foi enviado",
+    "Não foi possível enviar",
   );
   // Exercita classificação de links sem cadastrar contato fictício no site ou abrir serviços externos.
   await page.evaluate(() => {
@@ -125,7 +125,7 @@ test("eventos locais sem PII e sem conversão falsa", async ({ page }) => {
   expect(events.map((e) => e.event)).toEqual([
     "contact_click",
     "form_attempt",
-    "form_unavailable",
+    "form_error",
     "whatsapp_click",
     "phone_click",
     "email_click",

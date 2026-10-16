@@ -62,6 +62,7 @@ O `robots.txt` no subdiretório não substitui o arquivo da raiz. O meta robots
 continua presente em cada página; cadastre o sitemap explicitamente na ferramenta
 do buscador quando quiser acompanhar a indexação.
 
-GitHub Pages não executa APIs/backend. Por isso o formulário permanece honesto
-sobre a ausência de envio; os links WhatsApp/e-mail/telefone funcionam sem backend.
+GitHub Pages não executa APIs/backend. O formulário envia diretamente ao Formspree
+configurado em `site.leadEndpoint`; não há necessidade de backend próprio. Confira
+a ativação do formulário e o destinatário no painel do serviço.
 Eventos de analytics continuam locais até definir e configurar o provedor.
