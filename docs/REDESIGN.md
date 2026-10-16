@@ -84,3 +84,9 @@ escopo e funcionamento real de WhatsApp/Google Agenda antes de contratar ou
 ativar automações para uma clínica. Não houve teste com pacientes, criação de
 compromissos, envios reais ou integração paga. Nenhum MCP dos três solicitados
 está conectado: usamos Playwright/Chromium pelo terminal.
+
+## Atualização posterior: Analytics
+
+GA4 G-0EGN4M2JEW agora está configurado com consentimento prévio e preferências
+no rodapé. As observações anteriores de ausência de provedor foram superadas.
+Ver ANALYTICS.md para arquitetura, testes, limites e ajustes no painel Google.

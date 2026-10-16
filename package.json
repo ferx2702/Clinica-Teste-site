@@ -7,8 +7,8 @@
     "dev": "node scripts/serve-export.mjs --source",
     "build": "node scripts/build.mjs",
     "start": "node scripts/serve-export.mjs",
-    "lint": "eslint script.js config.js scripts eslint.config.mjs playwright.config.mjs",
-    "check": "node --check script.js && node --check config.js && node --check scripts/build.mjs",
+    "lint": "eslint script.js config.js analytics.js scripts eslint.config.mjs playwright.config.mjs",
+    "check": "node --check script.js && node --check config.js && node --check scripts/build.mjs && node --check analytics.js",
     "test": "playwright test",
     "test:pages": "playwright test"
   },

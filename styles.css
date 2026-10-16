@@ -1465,3 +1465,72 @@ details > p {
   width: 70px;
   height: 70px;
 }
+
+/* Consentimento: escolhas com igual destaque, sem bloquear o uso do site. */
+.consent-panel {
+  position: fixed;
+  z-index: 50;
+  inset: auto 16px max(16px, env(safe-area-inset-bottom));
+  max-width: 1050px;
+  margin-inline: auto;
+  padding: 23px;
+  background: #fff;
+  border: 1px solid #9eb6a6;
+  border-radius: 12px;
+  box-shadow: 0 6px 40px #123f3520;
+  display: grid;
+  gap: 17px;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
+.consent-content > strong {
+  font-size: 15px;
+  font-weight: 650;
+}
+.consent-content p {
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 70ch;
+}
+.consent-content > a {
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.consent-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.consent-actions .button {
+  flex: 1;
+  white-space: nowrap;
+  min-height: 44px;
+  font-size: 12px;
+}
+.privacy-preferences {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  min-height: 30px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-align: left;
+}
+.consent-open .floating-whatsapp {
+  display: none;
+}
+@media (min-width: 900px) {
+  .consent-panel {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 28px;
+  }
+  .consent-actions .button {
+    flex: initial;
+  }
+}

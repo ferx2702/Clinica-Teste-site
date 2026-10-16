@@ -20,6 +20,7 @@ for (const file of [
   "index.html",
   "styles.css",
   "script.js",
+  "analytics.js",
   "config.js",
   "favicon.svg",
   "privacidade.html",

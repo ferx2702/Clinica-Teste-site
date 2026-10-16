@@ -131,3 +131,15 @@ foi refeita em index.html, styles.css, script.js e config.js, com páginas legai
 simples. Os resultados e limites atuais estão em REDESIGN.md. WhatsApp atualizado
 conforme o novo briefing para +5516992915744, mantendo fergasvi@outlook.com e o
 endpoint Formspree já fornecido. O formulário agora recebe WhatsApp, sem e-mail.
+
+## Integração GA4 (16/10/2026)
+
+Configurado G-0EGN4M2JEW com banner aceitar/recusar e preferências no rodapé.
+O tag só carrega após aceitação; eventos anteriores não são repassados. Negação
+interrompe o encaminhamento, desabilita a propriedade e remove cookies locais
+acessíveis. Escolha expira em 180 dias. Política de privacidade atualizada.
+
+Build, lint e check aprovados. 30 testes desktop/mobile passaram no caminho
+GitHub Pages, com mocks dos serviços externos. Banner revisado visualmente e
+axe sem violações detectadas. Entrega real ao GA4 e configurações da propriedade
+não verificadas; é necessário publicar e consultar o painel. Ver ANALYTICS.md.

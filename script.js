@@ -25,7 +25,7 @@
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
-  // Contrato existente: sem dados pessoais e sem provedor externo instalado.
+  // Contrato local: apenas tipo e posição do evento, sem dados dos campos.
   function track(event, placement = "interest_form") {
     window.dispatchEvent(
       new CustomEvent("clara:conversion", { detail: { event, placement } }),

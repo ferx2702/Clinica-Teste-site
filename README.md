@@ -36,6 +36,7 @@ Chromium instalado por `npx playwright install --with-deps chromium`.
 - `index.html`: textos, seções, título SEO, Open Graph e JSON-LD.
 - `styles.css`: tokens de cor, tipografia, espaçamento e responsividade.
 - `script.js`: menu, validação, Formspree, FAQ nativo e eventos locais.
+- `analytics.js`: Google Analytics 4, consentimento e encaminhamento dos eventos.
 - `config.js`: nome, WhatsApp, telefone, e-mail, mensagem do CTA e endpoint.
 - `privacidade.html` e `termos.html`: documentos iniciais, marcados para revisão.
 - `public/fonts/`: fonte WOFF2 local.
@@ -71,9 +72,12 @@ entrega real. Não envie informações de pacientes no formulário.
 Mantido o contrato `window` → `clara:conversion`, com payload limitado a `event`
 e `placement`, sem dados dos campos. Eventos: `contact_click`, `whatsapp_click`,
 `phone_click`, `email_click`, `form_attempt`, `form_unavailable`, `form_error` e
-`generate_lead`. Não há provedor externo de analytics ou cookies de rastreamento
-instalados. Integrar GA4/GTM, definir consentimento e validar recebimento dos
-eventos no provedor são tarefas posteriores.
+`generate_lead`. O Google Analytics 4 (`G-0EGN4M2JEW`) só é carregado após
+aceitação. A escolha pode ser alterada no rodapé e é lembrada por até 180 dias.
+Não há Google Tag Manager container nem publicidade conectada. Veja
+[configuração e validação do GA4](docs/ANALYTICS.md). O recebimento real na
+propriedade e a marcação dos eventos principais ainda precisam ser confirmados
+pelo responsável no painel do Google.
 
 ## SEO e publicação gratuita em 3 passos
 

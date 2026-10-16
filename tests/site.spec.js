@@ -3,6 +3,15 @@ import AxeBuilder from "@axe-core/playwright";
 const endpoint = "https://formspree.io/f/xrperlry";
 const test = base.extend({
   page: async ({ page }, runFixture) => {
+    await page.addInitScript(() =>
+      window.localStorage.setItem(
+        "secretaria.analytics-consent.v1",
+        JSON.stringify({
+          choice: "rejected",
+          expiresAt: Date.now() + 86400000,
+        }),
+      ),
+    );
     await page.route("https://formspree.io/**", (route) =>
       route.fulfill({
         status: 503,
