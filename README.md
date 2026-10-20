@@ -106,7 +106,7 @@ no subdiretório não controla o host inteiro; consulte `docs/GITHUB-PAGES.md`.
 
 ## O que ainda preencher ou validar
 
-- Preços e setup dos planos: colchetes são **placeholders**, não oferta real.
+- Definir preços, implantação, limites e condições comerciais. O site apresenta **investimento sob consulta**, sem valores fictícios.
 - Logo definitivo (há marca textual), prazos de implantação e eventuais casos
   reais. Não existem depoimentos, logos de clientes ou números inventados.
 - Identificação jurídica, base legal, retenção e demais termos legais, sinalizados
@@ -121,3 +121,10 @@ instruções locais, não skills nativas. Nenhum MCP shadcn, Magic/21st ou Chrom
 DevTools está conectado; a revisão usa Playwright pelo terminal. Documentos
 anteriores em `docs/` registram a implementação Next.js histórica e foram
 superados, no que divergem, por este README e `docs/REDESIGN.md`.
+
+## Revisão da oferta e análise de concorrência
+
+Em 20/10/2026, foram refinados hero, exemplos interativos fictícios, investimento
+sob consulta e explicação do retorno da demonstração. A análise dos concorrentes
+ficou bloqueada por acesso de rede; não há conclusões verificadas sobre seus sites.
+Veja [auditoria e pendências](docs/REVIEW-2026-10-20.md).

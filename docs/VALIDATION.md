@@ -143,3 +143,13 @@ Build, lint e check aprovados. 30 testes desktop/mobile passaram no caminho
 GitHub Pages, com mocks dos serviços externos. Banner revisado visualmente e
 axe sem violações detectadas. Entrega real ao GA4 e configurações da propriedade
 não verificadas; é necessário publicar e consultar o painel. Ver ANALYTICS.md.
+
+## Revisão comercial de 20/10/2026
+
+Hero mais explícito, três exemplos fictícios de atendimento exploráveis, preços
+provisórios substituídos por sob consulta e FAQ/retorno da demonstração mais
+claros. Mantidos SEO, contatos, GA4 com consentimento e Formspree. Build, lint e
+check passaram; a suíte de 32 testes desktop/mobile foi aprovada. Após ajuste da
+anotação de horário, 4 verificações de oferta e acessibilidade foram repetidas
+com sucesso. A comparação direta com concorrentes está bloqueada por 403 do
+proxy. Evidências e limites em REVIEW-2026-10-20.md.

@@ -327,3 +327,56 @@ test("HTML acessível sem JavaScript e sem envio acidental", async ({
   );
   await context.close();
 });
+
+test("oferta clara, exemplos locais e investimento sem valores fictícios", async ({
+  page,
+}) => {
+  const writes = [];
+  page.on("request", (request) => {
+    if (request.method() === "POST") writes.push(request.url());
+  });
+  await open(page);
+  await expect(page.locator("h1")).toContainText("Secretária virtual");
+  await expect(page.locator(".hero-description")).toContainText(
+    "1 a 2 profissionais",
+  );
+  const controls = page.getByRole("group", {
+    name: "Escolha um exemplo de atendimento",
+  });
+  await expect(controls).toBeVisible();
+  await controls
+    .getByRole("button", { name: "Reagendar", exact: true })
+    .click();
+  await expect(
+    controls.getByRole("button", { name: "Reagendar", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#demo-conversation")).toContainText(
+    "Reagendamento confirmado neste exemplo",
+  );
+  await expect(page.locator(".calendar-icon small")).toHaveText("TER");
+  await expect(page.locator(".calendar-icon b")).toHaveText("16h");
+  await controls
+    .getByRole("button", { name: "Lista de espera", exact: true })
+    .focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#demo-conversation")).toContainText(
+    "ordem dos avisos",
+  );
+  await expect(page.locator(".agenda-note")).toContainText(
+    "Nenhuma agenda real",
+  );
+  await controls.getByRole("button", { name: "Agendar", exact: true }).click();
+  await expect(page.locator("#demo-conversation")).toContainText(
+    "Quinta, às 15h",
+  );
+  await expect(controls.locator("[aria-pressed=true]")).toHaveCount(1);
+  await expect(page.locator("#investimento .price")).toHaveText([
+    "Sob consulta",
+    "Sob consulta",
+  ]);
+  expect(await page.locator("main").innerText()).not.toMatch(
+    /\[R\$|\[a preencher\]|placeholders/,
+  );
+  await expect(page.locator(".form-panel > p")).toContainText("não confirma");
+  expect(writes).toEqual([]);
+});

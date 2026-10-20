@@ -43,6 +43,102 @@
     else if (link.hasAttribute("data-contact") || href === "#contato")
       track("contact_click", placement);
   });
+  // Exemplos locais e fictícios; não enviam mensagens nem acessam agendas reais.
+  const demoControls = document.querySelector(".demo-controls");
+  const demoConversation = document.querySelector("#demo-conversation");
+  const examples = {
+    booking: [
+      ["patient", "Olá! Queria agendar uma avaliação."],
+      [
+        "assistant",
+        "Olá, Ana! Você já se consultou aqui ou será sua primeira visita?",
+      ],
+      ["patient", "Será minha primeira visita."],
+      [
+        "assistant",
+        "Seja bem-vinda! Temos quinta, às 15h. Funciona para você?",
+      ],
+      ["patient", "Sim, pode marcar!"],
+      [
+        "assistant",
+        "Combinado, Ana! Quinta, às 15h. Você receberá um lembrete no dia anterior.",
+      ],
+    ],
+    reschedule: [
+      ["patient", "Preciso mudar minha consulta de quinta."],
+      ["assistant", "Posso ajudar. Você prefere um horário na próxima semana?"],
+      ["patient", "Sim, no período da tarde."],
+      [
+        "assistant",
+        "No nosso exemplo, terça às 16h está disponível. Quer esse horário?",
+      ],
+      ["patient", "Sim, esse fica melhor."],
+      [
+        "assistant",
+        "Reagendamento confirmado neste exemplo. Se precisar de algo diferente, encaminho para a equipe.",
+      ],
+    ],
+    waitlist: [
+      ["patient", "Se surgir uma vaga mais cedo, podem me avisar?"],
+      [
+        "assistant",
+        "Podemos incluir você na lista de espera. Quer receber um aviso por aqui?",
+      ],
+      ["patient", "Quero, pode me avisar."],
+      [
+        "assistant",
+        "Neste exemplo, surgiu uma vaga amanhã, às 14h. Quer confirmar?",
+      ],
+      ["patient", "Sim, quero esse horário!"],
+      [
+        "assistant",
+        "Vaga confirmada neste exemplo. A disponibilidade e a ordem dos avisos seguem as regras da clínica.",
+      ],
+    ],
+  };
+  if (demoControls && demoConversation) {
+    demoControls.hidden = false;
+    demoControls.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-demo]");
+      if (!button || !examples[button.dataset.demo]) return;
+      demoControls
+        .querySelectorAll("button")
+        .forEach((item) =>
+          item.setAttribute("aria-pressed", String(item === button)),
+        );
+      const label = document.createElement("span");
+      label.className = "chat-label";
+      label.textContent = "Exemplo fictício de atendimento";
+      const bubbles = examples[button.dataset.demo].map(
+        ([speaker, text], index) => {
+          const bubble = document.createElement("div");
+          bubble.className = `bubble ${speaker}`;
+          bubble.textContent = text;
+          const time = document.createElement("small");
+          time.textContent = index < 2 ? "14:32" : "14:33";
+          bubble.append(time);
+          return bubble;
+        },
+      );
+      demoConversation.replaceChildren(label, ...bubbles);
+      const note = document.querySelector(".agenda-note strong");
+      const caption = document.querySelector(".agenda-note div > span");
+      note.textContent = {
+        booking: "Mais um espaço preenchido.",
+        reschedule: "Mudança de horário organizada.",
+        waitlist: "Uma oportunidade de encaixe.",
+      }[button.dataset.demo];
+      caption.textContent = "Simulação. Nenhuma agenda real é acessada.";
+      const times = {
+        booking: ["QUI", "15h"],
+        reschedule: ["TER", "16h"],
+        waitlist: ["AMANHÃ", "14h"],
+      };
+      const [day, time] = times[button.dataset.demo];
+      document.querySelector(".calendar-icon small").textContent = day;
+      document.querySelector(".calendar-icon b").textContent = time;
+    });
+  }
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector("#mobile-nav");
   function closeMenu() {

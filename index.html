@@ -16,7 +16,7 @@
     />
     <meta
       property="og:title"
-      content="Sua agenda em movimento. Seu tempo de volta. | Secretar.IA"
+      content="Secretária virtual para o WhatsApp da sua clínica | Secretar.IA"
     />
     <meta
       property="og:description"
@@ -133,16 +133,16 @@
       <section class="hero container" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="intro">
-            <span class="status-dot" aria-hidden="true"></span> Para
-            consultórios pequenos. Com grandes planos.
+            <span class="status-dot" aria-hidden="true"></span> Para odontologia
+            e nutrição em Ribeirão Preto.
           </p>
           <h1 id="hero-title">
-            Seu WhatsApp atende.<br />Sua agenda anda.<br />Você cuida.
+            Secretária virtual<br />no WhatsApp da<br />sua clínica.
           </h1>
           <p class="hero-description">
-            Uma secretária virtual para atender e agendar no WhatsApp, 24 horas
-            por dia. Feita para dentistas e nutricionistas que precisam de mais
-            tempo para seus pacientes.
+            Atenda quem chama, organize pedidos de consulta e aproveite
+            oportunidades de encaixe. Automação com IA para dentistas e
+            nutricionistas com equipes de 1 a 2 profissionais.
           </p>
           <div class="actions">
             <a
@@ -175,15 +175,46 @@
             >
           </div>
           <p class="hero-note">
-            <span aria-hidden="true">⌁</span> Tecnologia nos bastidores. Cuidado
-            em primeiro lugar.
+            <span aria-hidden="true">⌁</span> Conheça o fluxo na demonstração
+            antes de contratar.
           </p>
         </div>
         <figure
           class="demo-scene"
-          aria-label="Conversa fictícia de agendamento no WhatsApp"
+          aria-label="Exemplos fictícios de atendimento no WhatsApp"
         >
           <div class="scene-background" aria-hidden="true"></div>
+          <div
+            class="demo-controls"
+            role="group"
+            aria-label="Escolha um exemplo de atendimento"
+            hidden
+          >
+            <button
+              type="button"
+              data-demo="booking"
+              aria-pressed="true"
+              aria-controls="demo-conversation"
+            >
+              Agendar
+            </button>
+            <button
+              type="button"
+              data-demo="reschedule"
+              aria-pressed="false"
+              aria-controls="demo-conversation"
+            >
+              Reagendar
+            </button>
+            <button
+              type="button"
+              data-demo="waitlist"
+              aria-pressed="false"
+              aria-controls="demo-conversation"
+            >
+              Lista de espera
+            </button>
+          </div>
           <div class="chat">
             <div class="chat-top">
               <span class="clinic-avatar" aria-hidden="true">C</span>
@@ -205,7 +236,12 @@
                 /></svg
               ><span aria-hidden="true">⋮</span>
             </div>
-            <div class="chat-body">
+            <div
+              class="chat-body"
+              id="demo-conversation"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               <span class="chat-label">Exemplo fictício de atendimento</span>
               <div class="bubble patient">
                 Olá! Queria agendar uma avaliação.<small>14:32</small>
@@ -569,9 +605,9 @@
           </article>
         </div>
         <p class="scope-note">
-          Benefícios esperados, sem promessa de resultado. Indicadores e casos
-          reais: <span class="placeholder">[a preencher]</span> após validação
-          com clientes.
+          Resultados dependem da rotina e da implantação. Antes de ativar,
+          combinamos quais indicadores acompanhar, como pedidos respondidos e
+          horários confirmados.
         </p>
       </section>
       <section
@@ -583,26 +619,31 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">Um começo que cabe na sua realidade</p>
-              <h2 id="pricing-title">Vamos encontrar<br />o formato certo.</h2>
+              <h2 id="pricing-title">
+                O investimento começa<br />pela sua rotina.
+              </h2>
             </div>
             <p>
-              Setup + mensalidade. O escopo e as condições são combinados antes
-              da contratação.
+              Implantação + mensalidade. Você recebe uma proposta com escopo e
+              condições definidos antes da contratação.
             </p>
           </div>
           <p class="pricing-disclaimer">
-            Planos ilustrativos em definição. Os valores entre colchetes são
-            placeholders, não uma oferta comercial.
+            O valor depende dos canais, regras da agenda e acompanhamento
+            necessários. As opções abaixo orientam a conversa; a disponibilidade
+            é validada com você.
           </p>
-          <div class="pricing-grid">
+          <div class="pricing-grid quote-grid">
             <article class="plan">
               <span class="plan-label">Para começar</span>
               <h3>Essencial</h3>
               <p class="plan-description">
                 Um primeiro passo para organizar o atendimento.
               </p>
-              <p class="price">[R$ 500/mês]</p>
-              <p class="setup">Setup: [a preencher]</p>
+              <p class="price">Sob consulta</p>
+              <p class="setup">
+                Implantação e mensalidade detalhadas na proposta.
+              </p>
               <ul>
                 <li>Atendimento administrativo no WhatsApp</li>
                 <li>Agendamento e Google Agenda</li>
@@ -622,8 +663,10 @@
               <p class="plan-description">
                 Um fluxo que também olha para os horários vagos.
               </p>
-              <p class="price">[R$ 750/mês]</p>
-              <p class="setup">Setup: [a preencher]</p>
+              <p class="price">Sob consulta</p>
+              <p class="setup">
+                Implantação e mensalidade detalhadas na proposta.
+              </p>
               <ul>
                 <li>Escopo do plano Essencial</li>
                 <li>Lista de espera e prioridade de fila</li>
@@ -637,48 +680,22 @@
                 >Agendar demonstração</a
               >
             </article>
-            <article class="plan plan-custom">
-              <span class="plan-label">Sua rotina é diferente?</span>
-              <h3>Vamos conversar.</h3>
-              <p>
-                Se seu consultório tem outras necessidades, começamos entendendo
-                o que faz sentido para você.
-              </p>
-              <span class="custom-art" aria-hidden="true"
-                ><svg
-                  class="arrow-icon"
-                  aria-hidden="true"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                >
-                  <path d="M6 18 18 6M6 6h12v12" /></svg></span
-              ><a
-                class="text-link"
-                data-whatsapp
-                data-placement="plan-custom"
-                href="https://wa.me/5516992915744"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Fale com a gente
-                <span aria-hidden="true"
-                  ><svg
-                    class="arrow-icon"
-                    aria-hidden="true"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.7"
-                  >
-                    <path d="M6 18 18 6M6 6h12v12" /></svg></span
-                ><span class="sr-only"> (abre em nova aba)</span></a
-              >
-            </article>
+          </div>
+          <div class="proposal-note">
+            <p>
+              Não sabe qual escopo faz sentido? Conte como funciona seu
+              consultório.
+            </p>
+            <a
+              class="text-link"
+              data-whatsapp
+              data-placement="plan-custom"
+              href="https://wa.me/5516992915744"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Pedir uma proposta pelo WhatsApp
+              <span class="sr-only">(abre em nova aba)</span></a
+            >
           </div>
         </div>
       </section>
@@ -693,6 +710,25 @@
           <p>Sem complicar o que pode ser simples.</p>
         </div>
         <div class="faq-list">
+          <details>
+            <summary>O que vou conhecer na demonstração?</summary>
+            <p>
+              Conversamos sobre o seu atendimento e apresentamos exemplos de
+              agendamento, encaixe e encaminhamento para a equipe. A partir
+              dessa conversa, avaliamos quais integrações fazem sentido e o que
+              precisa ser configurado. Não é necessário enviar dados de
+              pacientes para conhecer a proposta.
+            </p>
+          </details>
+          <details>
+            <summary>Quanto custa e o que entra na proposta?</summary>
+            <p>
+              O investimento é definido após entendermos a rotina do
+              consultório. A proposta discrimina implantação, mensalidade,
+              escopo, condições de uso e acompanhamento. Não há preço ou prazo
+              confirmado antes dessa avaliação.
+            </p>
+          </details>
           <details>
             <summary>Como funciona a integração?</summary>
             <p>
@@ -734,9 +770,18 @@
             <summary>Quanto tempo leva para começar?</summary>
             <p>
               O prazo depende das contas, integrações e regras do consultório.
-              Depois de entender sua rotina, apresentamos um cronograma. Prazo
-              de referência: [a preencher]. A operação começa após testes e
+              Depois de entender sua rotina, apresentamos um cronograma e o que
+              precisamos de você em cada etapa. A operação começa após testes e
               aprovação do fluxo.
+            </p>
+          </details>
+          <details>
+            <summary>O formulário confirma o horário da demonstração?</summary>
+            <p>
+              Não. Ele envia seu contato à equipe da Secretar.IA, que retorna
+              pelo WhatsApp informado para combinar um horário. Você não recebe
+              uma mensagem automática de agendamento. Se preferir conversar
+              agora, use o botão de WhatsApp.
             </p>
           </details>
         </div>
@@ -749,10 +794,11 @@
         <div class="container contact-layout">
           <div class="contact-copy">
             <p class="eyebrow">Sua próxima consulta merece sua atenção</p>
-            <h2 id="contact-title">Deixe a conversa<br />começar por aqui.</h2>
+            <h2 id="contact-title">Vamos olhar para<br />a sua rotina?</h2>
             <p>
-              Conte como é sua rotina. Na demonstração, você entende o que a
-              secretária virtual pode fazer pelo seu consultório.
+              Conte onde o atendimento fica mais difícil. Na demonstração,
+              avaliamos um fluxo para o seu consultório, as integrações
+              necessárias e os próximos passos para começar.
             </p>
             <a
               class="button"
@@ -781,7 +827,11 @@
           </div>
           <div class="form-panel">
             <h3>Agendar demonstração</h3>
-            <p>Preencha seus dados. Vamos combinar um horário.</p>
+            <p>
+              Deixe seu contato. Nossa equipe retorna pelo WhatsApp para
+              combinar um horário; o envio não confirma uma demonstração
+              automaticamente.
+            </p>
             <form
               id="lead-form"
               action="https://formspree.io/f/xrperlry"

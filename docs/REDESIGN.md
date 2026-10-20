@@ -90,3 +90,9 @@ está conectado: usamos Playwright/Chromium pelo terminal.
 GA4 G-0EGN4M2JEW agora está configurado com consentimento prévio e preferências
 no rodapé. As observações anteriores de ausência de provedor foram superadas.
 Ver ANALYTICS.md para arquitetura, testes, limites e ajustes no painel Google.
+
+## Revisão comercial posterior
+
+Em 20/10/2026, os preços provisórios foram substituídos por investimento sob
+consulta e a demonstração ganhou três exemplos exploráveis. O diagnóstico
+atual e a comparação de concorrência ainda pendente estão em REVIEW-2026-10-20.md.

@@ -1534,3 +1534,59 @@ details > p {
     flex: initial;
   }
 }
+
+/* Refinamentos da oferta: exemplos exploráveis e orçamento sem preços fictícios. */
+.demo-controls {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+}
+.demo-controls button {
+  font: 600 10px/1.5 var(--font);
+  border: 1px solid #a4bca9;
+  background: #ffffffd9;
+  color: var(--green);
+  padding: 8px 10px;
+  min-height: 36px;
+  border-radius: 20px;
+}
+.demo-controls button:hover {
+  background: #e0ebda;
+}
+.demo-controls button[aria-pressed="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.proposal-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 25px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 23px;
+  border-top: 1px solid var(--line);
+}
+.proposal-note p {
+  font-size: 12px;
+  max-width: 55ch;
+}
+.proposal-note a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (min-width: 700px) {
+  .pricing-grid.quote-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .demo-controls button {
+    font-size: 11px;
+  }
+  .demo-controls {
+    gap: 7px;
+  }
+}
