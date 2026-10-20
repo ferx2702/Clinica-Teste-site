@@ -22,6 +22,17 @@
       property="og:description"
       content="Uma secretária virtual no WhatsApp para a rotina do seu consultório. Atendimento, agendamento e lista de espera, com implantação acompanhada."
     />
+    <meta
+      property="og:image"
+      content="https://ferx2702.github.io/Clinica-Teste-site/public/brand/agendia-og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="AgendIA — Secretária virtual no WhatsApp para clínicas"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta
@@ -51,7 +62,8 @@
             "logo": "https://ferx2702.github.io/Clinica-Teste-site/public/brand/agendia-logo.svg",
             "url": "https://ferx2702.github.io/Clinica-Teste-site/",
             "email": "fergasvi@outlook.com",
-            "telephone": "+5516992915744"
+            "telephone": "+5516992915744",
+            "areaServed": { "@type": "City", "name": "Ribeirão Preto" }
           },
           {
             "@type": "Service",
@@ -200,15 +212,15 @@
               aria-pressed="true"
               aria-controls="demo-conversation"
             >
-              Agendar
+              Primeira visita
             </button>
             <button
               type="button"
-              data-demo="reschedule"
+              data-demo="return"
               aria-pressed="false"
               aria-controls="demo-conversation"
             >
-              Reagendar
+              Retorno
             </button>
             <button
               type="button"
@@ -217,6 +229,12 @@
               aria-controls="demo-conversation"
             >
               Lista de espera
+            </button>
+          </div>
+          <div class="demo-playback" hidden>
+            <button type="button" id="demo-pause">Pausar demonstração</button
+            ><button type="button" id="demo-complete">
+              Ver conversa completa
             </button>
           </div>
           <div class="chat">
@@ -244,7 +262,8 @@
               class="chat-body"
               id="demo-conversation"
               aria-live="polite"
-              aria-atomic="true"
+              aria-atomic="false"
+              aria-relevant="additions"
             >
               <span class="chat-label">Exemplo fictício de atendimento</span>
               <div class="bubble patient">
@@ -289,8 +308,8 @@
             <span class="check-circle" aria-hidden="true">✓</span>
           </div>
           <figcaption>
-            Demonstração ilustrativa. Fluxos e integrações dependem de
-            configuração e validação na implantação.
+            Exemplo fictício. Nenhuma mensagem é enviada e nenhuma agenda real é
+            acessada.
           </figcaption>
         </figure>
       </section>
@@ -396,10 +415,6 @@
               </p>
             </li>
           </ol>
-          <p class="scope-note">
-            Fluxo proposto para implantação. A conexão com WhatsApp e Google
-            Agenda é validada antes da ativação.
-          </p>
         </div>
       </section>
       <section
@@ -533,11 +548,6 @@
             </article>
           </div>
         </div>
-        <p class="scope-note">
-          As funcionalidades desta proposta dependem do escopo contratado, das
-          permissões e das integrações configuradas. A demonstração não
-          representa uma integração ativa neste site.
-        </p>
       </section>
       <section
         class="audience-section section"
@@ -608,10 +618,238 @@
             </p>
           </article>
         </div>
-        <p class="scope-note">
-          Resultados dependem da rotina e da implantação. Antes de ativar,
-          combinamos quais indicadores acompanhar, como pedidos respondidos e
-          horários confirmados.
+      </section>
+      <section
+        class="section container"
+        id="seguranca"
+        aria-labelledby="security-title"
+      >
+        <div class="section-heading">
+          <div>
+            <h2 id="security-title">
+              Regras claras.<br />
+              Cuidado em cada conversa.
+            </h2>
+          </div>
+          <p>
+            O atendimento é administrativo. Os limites de uso são combinados com
+            a clínica antes da ativação.
+          </p>
+        </div>
+        <div class="security-grid">
+          <article>
+            <h3>Dados administrativos</h3>
+            <p>
+              O fluxo é pensado para agendamento e dúvidas da rotina, sem
+              solicitar dados clínicos nas conversas. Oriente os pacientes a não
+              enviar exames ou informações de saúde.
+            </p>
+          </article>
+          <article>
+            <h3>A clínica define as regras</h3>
+            <p>
+              Horários, intervalos, prioridades e limites de atendimento seguem
+              o que for definido com a equipe.
+            </p>
+          </article>
+          <article>
+            <h3>Acesso combinado</h3>
+            <p>
+              Contas, permissões e responsáveis são definidos na implantação, de
+              acordo com o escopo contratado.
+            </p>
+          </article>
+          <article>
+            <h3>Uma pessoa quando precisar</h3>
+            <p>
+              Situações fora do fluxo são encaminhadas à equipe da clínica. O
+              atendimento humano continua sendo parte da rotina.
+            </p>
+          </article>
+        </div>
+        <p class="section-notice">
+          A tecnologia não garante conformidade automática com a LGPD.
+          Responsabilidades, retenção e tratamento de dados precisam ser
+          definidos e revisados.
+          <a href="privacidade.html">Leia a Política de Privacidade</a>.
+        </p>
+      </section>
+      <section class="team-section section" aria-labelledby="team-title">
+        <div class="container team-layout">
+          <div
+            class="portrait-placeholder"
+            role="img"
+            aria-label="Espaço reservado para foto da pessoa responsável pela AgendIA"
+          >
+            <span aria-hidden="true">A</span>
+            <p>[Foto real a preencher]</p>
+          </div>
+          <div>
+            <h2 id="team-title">Quem está por trás da AgendIA</h2>
+            <h3 class="person-name">[Nome e função a preencher]</h3>
+            <p>
+              [Apresente em uma frase quem você é e sua relação com a rotina das
+              clínicas.]
+            </p>
+            <p>
+              [Conte por que criou a AgendIA e como pretende acompanhar cada
+              implantação.]
+            </p>
+            <p>
+              [Explique como a clínica pode conversar com você e tirar dúvidas.]
+            </p>
+          </div>
+        </div>
+        <aside
+          class="container pilot-strip"
+          aria-label="Programa piloto em preparação"
+        >
+          <div>
+            <h3>Programa piloto em Ribeirão Preto</h3>
+            <p>Vagas limitadas — [quantidade e disponibilidade a confirmar].</p>
+            <p>
+              <strong
+                >Condições: [duração, escopo, investimento e critérios a
+                preencher].</strong
+              >
+            </p>
+          </div>
+          <a
+            class="text-link"
+            href="#contato"
+            data-contact
+            data-placement="pilot"
+            >Consultar condições do piloto</a
+          >
+        </aside>
+      </section>
+      <section
+        class="section container impact-section"
+        id="impacto"
+        aria-labelledby="impact-title"
+      >
+        <div class="section-heading">
+          <div>
+            <h2 id="impact-title">
+              Quanto pesa um horário<br />
+              que fica vazio?
+            </h2>
+          </div>
+          <p>
+            Teste uma hipótese para sua rotina. Os valores iniciais são exemplos
+            editáveis, sem previsão de receita.
+          </p>
+        </div>
+        <div class="impact-layout">
+          <form
+            id="impact-calculator"
+            aria-label="Calculadora de impacto"
+            novalidate
+          >
+            <div class="field">
+              <label for="impact-requests">Pedidos de consulta por semana</label
+              ><input
+                id="impact-requests"
+                name="requests"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="10000"
+                step="1"
+                value="10"
+                required
+                aria-describedby="requests-help"
+              />
+              <p id="requests-help">
+                Somente pedidos que ficaram sem agendamento, não o total
+                recebido.
+              </p>
+            </div>
+            <div class="field">
+              <label for="impact-ticket">Ticket médio da consulta (R$)</label
+              ><input
+                id="impact-ticket"
+                name="ticket"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                max="100000"
+                step="0.01"
+                value="150"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="impact-absences">Faltas por mês</label
+              ><input
+                id="impact-absences"
+                name="absences"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="10000"
+                step="1"
+                value="4"
+                required
+                aria-describedby="absences-help"
+              />
+              <p id="absences-help">
+                Consultas já agendadas. Não repita os pedidos informados acima.
+              </p>
+            </div>
+            <div class="field">
+              <label for="impact-rate"
+                >Taxa de recuperação simulada:
+                <output id="rate-value" for="impact-rate">10%</output></label
+              ><input
+                id="impact-rate"
+                name="rate"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="10"
+                aria-describedby="rate-help"
+              />
+              <p id="rate-help">
+                Começamos em 10%, uma hipótese conservadora para explorar.
+                Ajuste de 0% a 100%; esta taxa não é um resultado observado.
+              </p>
+            </div>
+            <p id="impact-error" class="field-error" role="status"></p>
+          </form>
+          <div class="impact-result">
+            <p>Valor mensal potencial na hipótese escolhida</p>
+            <output
+              id="impact-total"
+              for="impact-requests impact-ticket impact-absences impact-rate"
+              aria-live="polite"
+              aria-atomic="true"
+              >Ative o JavaScript para calcular.</output
+            >
+            <p id="impact-breakdown"></p>
+            <a
+              class="button button-outline"
+              href="#contato"
+              data-contact
+              data-placement="calculator"
+              >Conversar sobre minha rotina</a
+            >
+          </div>
+        </div>
+        <details class="formula-details">
+          <summary>Como a simulação é calculada</summary>
+          <p>
+            (Pedidos semanais sem agendamento × 4,33 + faltas mensais) × ticket
+            médio × taxa escolhida. Usamos 4,33 semanas por mês. Os dois grupos
+            devem ser distintos. A conta não inclui custos, margem, capacidade
+            disponível ou valor da implantação; não representa lucro, retorno
+            garantido ou receita realizada.
+          </p>
+        </details>
+        <p class="section-notice">
+          Simulação ilustrativa. Os resultados dependem da rotina e da
+          implantação.
         </p>
       </section>
       <section
@@ -644,7 +882,8 @@
               <p class="plan-description">
                 Um primeiro passo para organizar o atendimento.
               </p>
-              <p class="price">Sob consulta</p>
+              <p class="price" data-proposal-label>Proposta personalizada</p>
+              <p class="optional-price" data-plan-price="essential" hidden></p>
               <p class="setup">
                 Implantação e mensalidade detalhadas na proposta.
               </p>
@@ -667,7 +906,8 @@
               <p class="plan-description">
                 Um fluxo que também olha para os horários vagos.
               </p>
-              <p class="price">Sob consulta</p>
+              <p class="price" data-proposal-label>Proposta personalizada</p>
+              <p class="optional-price" data-plan-price="agenda" hidden></p>
               <p class="setup">
                 Implantação e mensalidade detalhadas na proposta.
               </p>
@@ -685,6 +925,56 @@
               >
             </article>
           </div>
+          <div class="comparison-wrap">
+            <table class="plan-comparison">
+              <caption>
+                Compare o escopo dos planos
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Inclui</th>
+                  <th scope="col">Essencial</th>
+                  <th scope="col">Agenda em movimento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Atendimento administrativo no WhatsApp</th>
+                  <td>Incluído</td>
+                  <td>Incluído</td>
+                </tr>
+                <tr>
+                  <th scope="row">Agendamento e Google Agenda</th>
+                  <td>Incluído</td>
+                  <td>Incluído</td>
+                </tr>
+                <tr>
+                  <th scope="row">Lembretes de consulta</th>
+                  <td>Incluído</td>
+                  <td>Incluído</td>
+                </tr>
+                <tr>
+                  <th scope="row">Encaminhamento para a equipe</th>
+                  <td>Incluído</td>
+                  <td>Incluído</td>
+                </tr>
+                <tr>
+                  <th scope="row">Lista de espera e prioridade da fila</th>
+                  <td>Não incluído</td>
+                  <td>Incluído</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <aside
+            class="section-notice"
+            aria-label="Sobre os exemplos e o escopo"
+          >
+            Exemplos fictícios e benefícios ilustrativos. Fluxos, integrações,
+            permissões e regras dependem de configuração e validação na
+            implantação. O escopo final e os indicadores acompanhados são
+            combinados na proposta. Nenhum resultado é garantido.
+          </aside>
           <div class="proposal-note">
             <p>
               Não sabe qual escopo faz sentido? Conte como funciona seu
@@ -701,6 +991,23 @@
               <span class="sr-only">(abre em nova aba)</span></a
             >
           </div>
+        </div>
+      </section>
+      <section
+        class="section container video-section"
+        aria-labelledby="video-title"
+      >
+        <div>
+          <h2 id="video-title">Veja o fluxo em uma conversa.</h2>
+          <p>Espaço reservado para uma demonstração de 30 a 60 segundos.</p>
+        </div>
+        <div class="video-placeholder">
+          <span aria-hidden="true">▷</span>
+          <p>[Vídeo de demonstração a adicionar]</p>
+          <p>
+            Ao publicar, inclua legendas e uma transcrição. Nenhum vídeo é
+            carregado por enquanto.
+          </p>
         </div>
       </section>
       <section

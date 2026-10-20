@@ -132,3 +132,7 @@ Veja [auditoria e pendências](docs/REVIEW-2026-10-20.md).
 ## Marca AgendIA
 
 Logo vetorial, versão branca e ícone em `public/brand/`. Veja [guia da marca](docs/BRAND.md).
+
+## Demonstração, calculadora e novos conteúdos
+
+Veja [campos pendentes, fórmula e imagem social](docs/UPGRADES-AGENDIA.md).

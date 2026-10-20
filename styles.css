@@ -1588,3 +1588,353 @@ details > p {
     width: 173px;
   }
 }
+
+/* Refinamentos: densidade, demonstração e planejamento da rotina. */
+html {
+  scroll-padding-top: 105px;
+}
+section[id] {
+  scroll-margin-top: 10px;
+}
+:where(a, button, input, select, textarea, summary) {
+  scroll-margin-block: 115px 100px;
+}
+.section {
+  padding-block: 52px;
+}
+.demo-controls {
+  margin-bottom: 8px;
+}
+.demo-controls button {
+  min-height: 44px;
+  font-size: 11px;
+}
+.demo-playback {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.demo-playback button {
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 32px;
+  padding: 3px;
+}
+.demo-playback button:disabled {
+  color: #536862;
+  cursor: default;
+  text-decoration: none;
+}
+.chat-body {
+  height: 425px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.chat-label {
+  flex-shrink: 0;
+  font-size: 10px;
+}
+.bubble {
+  flex-shrink: 0;
+}
+.typing {
+  color: #354f43;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  min-height: 34px;
+}
+.typing span {
+  display: inline-block;
+  animation: typing-pulse 900ms ease-in-out infinite;
+  font-weight: 700;
+}
+.typing span:nth-child(2) {
+  animation-delay: 120ms;
+}
+.typing span:nth-child(3) {
+  animation-delay: 240ms;
+}
+@keyframes typing-pulse {
+  50% {
+    opacity: 0.4;
+    transform: translateY(-2px);
+  }
+}
+.demo-scene figcaption,
+.section-notice,
+.pricing-disclaimer,
+.setup,
+.footer-bottom {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.demo-scene figcaption {
+  max-width: 400px;
+  margin-top: 18px;
+}
+.section-notice {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: #eff4ed;
+  border-left: 3px solid #86a793;
+  color: #3e594e;
+}
+.section-notice a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.security-grid {
+  display: grid;
+  gap: 20px;
+}
+.security-grid article {
+  border-top: 2px solid #a8c1ad;
+  padding: 20px 0 0;
+}
+.security-grid p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.team-section {
+  background: #f1f5ee;
+}
+.team-layout {
+  display: grid;
+  gap: 26px;
+  align-items: center;
+}
+.portrait-placeholder {
+  aspect-ratio: 1;
+  width: min(100%, 260px);
+  border: 1px dashed #749582;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #e2ece0;
+}
+.portrait-placeholder > span {
+  font-size: 64px;
+  color: #526e5d;
+}
+.portrait-placeholder p {
+  font-size: 13px;
+}
+.person-name {
+  margin-top: 22px;
+}
+.team-layout > div > p {
+  margin-top: 12px;
+  font-size: 14px;
+  max-width: 65ch;
+}
+.pilot-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #b5c9b6;
+  padding-top: 25px;
+  margin-top: 35px;
+}
+.pilot-strip p {
+  font-size: 13px;
+  margin-top: 6px;
+}
+.pilot-strip .text-link {
+  text-decoration: underline;
+}
+.impact-layout {
+  display: grid;
+  gap: 24px;
+}
+#impact-calculator {
+  min-width: 0;
+}
+#impact-calculator .field label {
+  font-size: 14px;
+}
+#impact-calculator .field p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+#impact-rate {
+  padding-inline: 0;
+  accent-color: var(--green);
+}
+#rate-value {
+  font-weight: 700;
+}
+.impact-result {
+  border-radius: 14px;
+  padding: 26px;
+  background: var(--green);
+  color: white;
+  align-self: start;
+}
+.impact-result > p {
+  color: #e0ece3;
+  font-size: 14px;
+}
+#impact-total {
+  display: block;
+  font-size: clamp(28px, 6vw, 48px);
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  padding-block: 20px;
+  overflow-wrap: anywhere;
+}
+#impact-breakdown {
+  min-height: 75px;
+}
+.impact-result .button {
+  margin-top: 24px;
+  color: var(--green);
+  background: white;
+}
+.formula-details {
+  margin-top: 20px;
+}
+.optional-price {
+  font-size: 16px;
+  margin-top: 8px;
+  color: var(--green);
+}
+.price {
+  font-size: 25px;
+}
+.comparison-wrap {
+  margin-top: 30px;
+}
+.plan-comparison {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.plan-comparison caption {
+  text-align: left;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--green);
+}
+.plan-comparison th,
+.plan-comparison td {
+  border-bottom: 1px solid #c5d4c7;
+  padding: 12px 6px;
+  text-align: left;
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}
+.plan-comparison th:first-child {
+  width: 45%;
+}
+.plan-comparison thead {
+  background: #e5eee1;
+}
+.plan-comparison tbody th {
+  font-weight: 500;
+}
+.video-section {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+}
+.video-section > div > p {
+  margin-top: 18px;
+  font-size: 14px;
+}
+.video-placeholder {
+  aspect-ratio: 16 / 9;
+  background: #f1f5ee;
+  border: 1px dashed #8ba694;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.video-placeholder > span {
+  font-size: 38px;
+}
+.video-placeholder p {
+  font-size: 13px;
+  max-width: 45ch;
+}
+.video-placeholder p + p {
+  margin-top: 10px;
+}
+.footer-bottom {
+  flex-wrap: wrap;
+}
+.form-note {
+  font-size: 12px;
+}
+@media (min-width: 700px) {
+  .section {
+    padding-block: 64px;
+  }
+  .security-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 35px;
+  }
+  .team-layout {
+    grid-template-columns: 0.65fr 1.35fr;
+    gap: 45px;
+  }
+  .impact-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+  }
+  .plan-comparison {
+    font-size: 14px;
+  }
+  .plan-comparison th,
+  .plan-comparison td {
+    padding: 16px;
+  }
+  .video-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+  }
+  .floating-whatsapp {
+    display: flex;
+    padding: 10px 15px;
+    min-height: 44px;
+  }
+}
+@media (min-width: 1000px) {
+  .section {
+    padding-block: 72px;
+  }
+  .hero {
+    padding-block: 55px;
+  }
+  .chat-body {
+    height: 475px;
+  }
+  .security-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typing span {
+    animation: none;
+  }
+}

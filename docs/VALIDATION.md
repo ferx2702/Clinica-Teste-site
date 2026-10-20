@@ -157,3 +157,12 @@ proxy. Evidências e limites em REVIEW-2026-10-20.md.
 ## Marca AgendIA — 20/10/2026
 
 Nome atualizado na interface, configuração, títulos, metadados, JSON-LD e páginas legais. Logo vetorial original, variação branca, ícone e favicon incluídos no build. `npm run lint`, `npm run check`, `npm run build` e `BASE_PATH=/Clinica-Teste-site npm test` concluídos: 32 testes aprovados. Capturas desktop e mobile revisadas; nenhuma publicação em produção acionada. Os registros anteriores conservam o nome usado à época.
+
+## Demonstração, impacto e confiança — 20/10/2026
+
+- `npm run lint`, `npm run check`, `npm run build:og` e `npm run build`: aprovados.
+- `BASE_PATH=/Clinica-Teste-site npm test`: 38 testes aprovados (57,9 s) na execução final.
+- Testes cobrem pausa/reinício do chat, movimento reduzido, fórmula/limites da calculadora, imagem PNG 1200×630, ausência de overflow em 360/768/1440 px, posição do título abaixo do cabeçalho e foco visível. Incluem axe WCAG A/AA nas três páginas, consentimento GA4, navegação e respostas simuladas de sucesso/erro do Formspree. Nenhum lead de teste foi enviado a um serviço real.
+- Revisão visual local em Chromium/Playwright: hero, segurança, calculadora e planos em 360, 768 e 1440 px. Botão flutuante oculto nas áreas com controles e no rodapé. Referência Vercel atualizada consultada nesta revisão.
+- Não foi executado Lighthouse nem validado o compartilhamento em redes sociais ou o site publicado após estas mudanças. A imagem e os metadados foram validados no build local.
+- Conteúdos pendentes e premissas: `docs/UPGRADES-AGENDIA.md`. Publicação continua manual.

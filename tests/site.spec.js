@@ -199,7 +199,7 @@ test("Formspree: loading, payload e sucesso confirmado", async ({ page }) => {
     page.getByRole("button", { name: "Enviando…", exact: true }),
   ).toBeDisabled();
   await expect(page.locator("#nome")).toBeDisabled();
-  await expect(page.getByRole("status")).not.toContainText(
+  await expect(page.locator(".form-status")).not.toContainText(
     "Solicitação enviada",
   );
   expect(payload).toMatchObject({
@@ -211,7 +211,9 @@ test("Formspree: loading, payload e sucesso confirmado", async ({ page }) => {
   });
   expect(payload).not.toHaveProperty("email");
   release();
-  await expect(page.getByRole("status")).toContainText("Solicitação enviada");
+  await expect(page.locator(".form-status")).toContainText(
+    "Solicitação enviada",
+  );
   await expect(page.locator("#nome")).toHaveValue("");
   expect(
     (await page.evaluate(() => window.events)).map((e) => e.event),
@@ -240,7 +242,7 @@ for (const failure of ["network", "validation", "unconfirmed"])
     await page
       .getByRole("button", { name: "Solicitar demonstração", exact: true })
       .click();
-    await expect(page.getByRole("status")).toContainText(
+    await expect(page.locator(".form-status")).toContainText(
       "Não foi possível enviar",
     );
     await expect(page.locator("#nome")).toHaveValue("Contato fictício");
@@ -255,7 +257,9 @@ for (const failure of ["network", "validation", "unconfirmed"])
     await page
       .getByRole("button", { name: "Solicitar demonstração", exact: true })
       .click();
-    await expect(page.getByRole("status")).toContainText("Solicitação enviada");
+    await expect(page.locator(".form-status")).toContainText(
+      "Solicitação enviada",
+    );
   });
 test("FAQ, teclado, movimento reduzido e larguras sem overflow", async ({
   page,
@@ -331,6 +335,7 @@ test("HTML acessível sem JavaScript e sem envio acidental", async ({
 test("oferta clara, exemplos locais e investimento sem valores fictícios", async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   const writes = [];
   page.on("request", (request) => {
     if (request.method() === "POST") writes.push(request.url());
@@ -344,14 +349,12 @@ test("oferta clara, exemplos locais e investimento sem valores fictícios", asyn
     name: "Escolha um exemplo de atendimento",
   });
   await expect(controls).toBeVisible();
-  await controls
-    .getByRole("button", { name: "Reagendar", exact: true })
-    .click();
+  await controls.getByRole("button", { name: "Retorno", exact: true }).click();
   await expect(
-    controls.getByRole("button", { name: "Reagendar", exact: true }),
+    controls.getByRole("button", { name: "Retorno", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator("#demo-conversation")).toContainText(
-    "Reagendamento confirmado neste exemplo",
+    "Retorno confirmado neste exemplo",
   );
   await expect(page.locator(".calendar-icon small")).toHaveText("TER");
   await expect(page.locator(".calendar-icon b")).toHaveText("16h");
@@ -365,18 +368,134 @@ test("oferta clara, exemplos locais e investimento sem valores fictícios", asyn
   await expect(page.locator(".agenda-note")).toContainText(
     "Nenhuma agenda real",
   );
-  await controls.getByRole("button", { name: "Agendar", exact: true }).click();
+  await controls
+    .getByRole("button", { name: "Primeira visita", exact: true })
+    .click();
   await expect(page.locator("#demo-conversation")).toContainText(
     "Quinta, às 15h",
   );
   await expect(controls.locator("[aria-pressed=true]")).toHaveCount(1);
   await expect(page.locator("#investimento .price")).toHaveText([
-    "Sob consulta",
-    "Sob consulta",
+    "Proposta personalizada",
+    "Proposta personalizada",
   ]);
-  expect(await page.locator("main").innerText()).not.toMatch(
-    /\[R\$|\[a preencher\]|placeholders/,
+  await expect(page.locator(".person-name")).toHaveText(
+    "[Nome e função a preencher]",
   );
   await expect(page.locator(".form-panel > p")).toContainText("não confirma");
   expect(writes).toEqual([]);
+});
+
+test("chat animado: digitação, pausa, reinício e movimento reduzido", async ({
+  page,
+}) => {
+  await open(page);
+  await expect(page.locator(".typing")).toBeVisible();
+  await page
+    .getByRole("button", { name: "Pausar demonstração", exact: true })
+    .click();
+  const before = await page.locator("#demo-conversation .bubble").count();
+  await page.waitForTimeout(1400);
+  expect(await page.locator("#demo-conversation .bubble").count()).toBe(before);
+  await page
+    .getByRole("button", { name: "Continuar demonstração", exact: true })
+    .click();
+  await expect(page.locator(".typing")).toBeVisible();
+  await page.getByRole("button", { name: "Retorno", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Lista de espera", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Ver conversa completa", exact: true })
+    .click();
+  await expect(page.locator("#demo-conversation .bubble")).toHaveCount(6);
+  await expect(page.locator("#demo-conversation")).not.toContainText("retorno");
+  await page.waitForTimeout(1400);
+  await expect(page.locator("#demo-conversation .bubble")).toHaveCount(6);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page
+    .getByRole("button", { name: "Primeira visita", exact: true })
+    .click();
+  await expect(page.locator("#demo-conversation .bubble")).toHaveCount(6);
+  await expect(page.locator(".typing")).toHaveCount(0);
+});
+
+test("calculadora: fórmula, limites, taxa ajustável e nenhuma transmissão", async ({
+  page,
+}) => {
+  const writes = [];
+  page.on("request", (r) => {
+    if (r.method() === "POST") writes.push(r.url());
+  });
+  await open(page);
+  await expect(page.locator("#impact-total")).toHaveText(/709,50/);
+  await page.locator("#impact-requests").fill("0");
+  await page.locator("#impact-absences").fill("10");
+  await page.locator("#impact-ticket").fill("200");
+  await page.locator("#impact-rate").fill("25");
+  await expect(page.locator("#rate-value")).toHaveText("25%");
+  await expect(page.locator("#impact-total")).toHaveText(/500,00/);
+  await page.locator("#impact-rate").fill("0");
+  await expect(page.locator("#impact-total")).toHaveText(/0,00/);
+  await page.locator("#impact-ticket").fill("-1");
+  await expect(page.locator("#impact-ticket")).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  await expect(page.locator("#impact-total")).toHaveText("Confira os valores");
+  await page.locator("#impact-ticket").fill("");
+  await expect(page.locator("#impact-error")).not.toBeEmpty();
+  await page.locator("#impact-ticket").fill("200");
+  await expect(page.locator("#impact-error")).toBeEmpty();
+  expect(writes).toEqual([]);
+});
+
+test("novas seções, OG e revisão em 360, 768 e desktop", async ({
+  page,
+  request,
+}, info) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await open(page);
+  await expect(page.locator(".security-grid article")).toHaveCount(4);
+  await expect(page.locator(".plan-comparison tbody tr")).toHaveCount(5);
+  await expect(page.locator("[data-plan-price]").first()).toBeHidden();
+  const image = page.locator('meta[property="og:image"]');
+  expect(await image.getAttribute("content")).toContain(
+    "public/brand/agendia-og.png",
+  );
+  const response = await request.get("public/brand/agendia-og.png");
+  expect(response.ok()).toBeTruthy();
+  const png = await response.body();
+  expect(png.readUInt32BE(16)).toBe(1200);
+  expect(png.readUInt32BE(20)).toBe(630);
+  for (const width of [360, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("./");
+    await expect(page.locator("h1")).toHaveCount(1);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBeTruthy();
+    await page
+      .locator('a[href="#investimento"]')
+      .first()
+      .evaluate((el) => el.click());
+    await expect(page.locator("#pricing-title")).toBeInViewport();
+    await expect(page.locator(".floating-whatsapp")).toBeHidden();
+    const title = await page.locator("#pricing-title").boundingBox();
+    const header = await page.locator(".header").boundingBox();
+    expect(header).not.toBeNull();
+    expect(title.y).toBeGreaterThanOrEqual(header.y + header.height);
+    await page.locator("#impact-rate").focus();
+    expect(
+      await page
+        .locator("#impact-rate")
+        .evaluate((el) => getComputedStyle(el).outlineStyle),
+    ).not.toBe("none");
+    await page.screenshot({
+      path: `test-results/upgrade-${info.project.name}-${width}.png`,
+      fullPage: true,
+    });
+  }
 });

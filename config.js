@@ -2,6 +2,10 @@
 window.SECRETARIA_CONFIG = Object.freeze({
   analyticsId: "G-0EGN4M2JEW", // ID público do GA4. Coleta somente após consentimento.
   name: "AgendIA",
+  // Confirme um prazo real antes de anunciar, por exemplo, “Proposta em até 24h”.
+  proposalLabel: "Proposta personalizada",
+  // Preços opcionais: informe números positivos para exibir “A partir de R$ …/mês”.
+  planStartingPrices: { essential: null, agenda: null },
   whatsapp: "5516992915744",
   phone: "+5516992915744",
   email: "fergasvi@outlook.com",

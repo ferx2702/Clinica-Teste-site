@@ -43,7 +43,57 @@
     else if (link.hasAttribute("data-contact") || href === "#contato")
       track("contact_click", placement);
   });
-  // Exemplos locais e fictícios; não enviam mensagens nem acessam agendas reais.
+  const currency = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+  document.querySelectorAll("[data-proposal-label]").forEach((el) => {
+    el.textContent = config.proposalLabel || "Proposta personalizada";
+  });
+  document.querySelectorAll("[data-plan-price]").forEach((el) => {
+    const price = config.planStartingPrices?.[el.dataset.planPrice];
+    if (typeof price === "number" && Number.isFinite(price) && price > 0) {
+      el.textContent = `A partir de ${currency.format(price)}/mês`;
+      el.hidden = false;
+    }
+  });
+  // Simulação local: os dois grupos são distintos; nenhum dado é enviado.
+  const calculator = document.querySelector("#impact-calculator");
+  if (calculator) {
+    const total = document.querySelector("#impact-total");
+    const breakdown = document.querySelector("#impact-breakdown");
+    const error = document.querySelector("#impact-error");
+    function calculate() {
+      const fields = [...calculator.querySelectorAll("input")];
+      fields.forEach((field) => field.removeAttribute("aria-invalid"));
+      document.querySelector("#rate-value").textContent =
+        `${calculator.elements.rate.value}%`;
+      const invalid = fields.filter(
+        (field) => !field.checkValidity() || field.value === "",
+      );
+      if (invalid.length) {
+        invalid.forEach((field) => field.setAttribute("aria-invalid", "true"));
+        total.textContent = "Confira os valores";
+        breakdown.textContent = "";
+        error.textContent =
+          "Preencha valores não negativos dentro dos limites: até 10.000 pedidos ou faltas e R$ 100.000 por consulta. Pedidos e faltas devem ser inteiros.";
+        return;
+      }
+      error.textContent = "";
+      const [requests, ticket, absences, rate] = fields.map((field) =>
+        Number(field.value),
+      );
+      const factor = rate / 100;
+      const missed = requests * 4.33 * ticket * factor;
+      const noShows = absences * ticket * factor;
+      total.textContent = currency.format(missed + noShows);
+      breakdown.textContent = `${currency.format(missed)} em pedidos sem agendamento + ${currency.format(noShows)} em faltas. Estimativa mensal bruta, sem descontar custos.`;
+    }
+    calculator.addEventListener("input", calculate);
+    calculator.addEventListener("submit", (event) => event.preventDefault());
+    calculate();
+  }
+  // Demonstração fictícia e cancelável. Não acessa WhatsApp ou Google Agenda.
   const demoControls = document.querySelector(".demo-controls");
   const demoConversation = document.querySelector("#demo-conversation");
   const examples = {
@@ -51,7 +101,7 @@
       ["patient", "Olá! Queria agendar uma avaliação."],
       [
         "assistant",
-        "Olá, Ana! Você já se consultou aqui ou será sua primeira visita?",
+        "Olá, Ana! Será sua primeira visita ou você já se consultou aqui?",
       ],
       ["patient", "Será minha primeira visita."],
       [
@@ -61,28 +111,28 @@
       ["patient", "Sim, pode marcar!"],
       [
         "assistant",
-        "Combinado, Ana! Quinta, às 15h. Você receberá um lembrete no dia anterior.",
+        "Combinado, Ana! Quinta, às 15h. Um lembrete será enviado no dia anterior.",
       ],
     ],
-    reschedule: [
-      ["patient", "Preciso mudar minha consulta de quinta."],
-      ["assistant", "Posso ajudar. Você prefere um horário na próxima semana?"],
-      ["patient", "Sim, no período da tarde."],
+    return: [
+      ["patient", "Olá! Gostaria de agendar meu retorno."],
+      ["assistant", "Olá! Você já se consultou aqui antes?"],
+      ["patient", "Sim, quero marcar um retorno."],
       [
         "assistant",
-        "No nosso exemplo, terça às 16h está disponível. Quer esse horário?",
+        "Neste exemplo, terça às 16h está disponível. Quer confirmar?",
       ],
       ["patient", "Sim, esse fica melhor."],
       [
         "assistant",
-        "Reagendamento confirmado neste exemplo. Se precisar de algo diferente, encaminho para a equipe.",
+        "Retorno confirmado neste exemplo. Se precisar, encaminho você para a equipe.",
       ],
     ],
     waitlist: [
       ["patient", "Se surgir uma vaga mais cedo, podem me avisar?"],
       [
         "assistant",
-        "Podemos incluir você na lista de espera. Quer receber um aviso por aqui?",
+        "Quer entrar na lista de espera e receber um aviso por aqui?",
       ],
       ["patient", "Quero, pode me avisar."],
       [
@@ -97,47 +147,121 @@
     ],
   };
   if (demoControls && demoConversation) {
-    demoControls.hidden = false;
-    demoControls.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-demo]");
-      if (!button || !examples[button.dataset.demo]) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pause = document.querySelector("#demo-pause");
+    const complete = document.querySelector("#demo-complete");
+    let selected = "booking";
+    let timer;
+    let cursor = 0;
+    let paused = false;
+    let typing = null;
+    function stopTimer() {
+      clearTimeout(timer);
+      typing?.remove();
+      typing = null;
+    }
+    function bubble([speaker, text], index) {
+      const el = document.createElement("div");
+      el.className = `bubble ${speaker}`;
+      el.textContent = text;
+      const time = document.createElement("small");
+      time.textContent = index < 2 ? "14:32" : "14:33";
+      el.append(time);
+      return el;
+    }
+    function finish() {
+      stopTimer();
+      while (cursor < examples[selected].length) {
+        demoConversation.append(bubble(examples[selected][cursor], cursor));
+        cursor++;
+      }
+      pause.disabled = true;
+      pause.textContent = "Demonstração concluída";
+      complete.disabled = true;
+      demoConversation.scrollTop = demoConversation.scrollHeight;
+    }
+    function next() {
+      if (paused || cursor >= examples[selected].length) return;
+      typing = document.createElement("div");
+      typing.className = `bubble ${examples[selected][cursor][0]} typing`;
+      typing.setAttribute("aria-label", "Digitando…");
+      typing.textContent = "Digitando";
+      for (let i = 0; i < 3; i++) {
+        const dot = document.createElement("span");
+        dot.setAttribute("aria-hidden", "true");
+        dot.textContent = "·";
+        typing.append(dot);
+      }
+      demoConversation.append(typing);
+      demoConversation.scrollTop = demoConversation.scrollHeight;
+      timer = setTimeout(() => {
+        typing?.remove();
+        typing = null;
+        demoConversation.append(bubble(examples[selected][cursor], cursor));
+        cursor++;
+        demoConversation.scrollTop = demoConversation.scrollHeight;
+        if (cursor === examples[selected].length) finish();
+        else timer = setTimeout(next, 450);
+      }, 800);
+    }
+    function start(key) {
+      stopTimer();
+      selected = key;
+      cursor = 0;
+      paused = false;
       demoControls
         .querySelectorAll("button")
         .forEach((item) =>
-          item.setAttribute("aria-pressed", String(item === button)),
+          item.setAttribute("aria-pressed", String(item.dataset.demo === key)),
         );
       const label = document.createElement("span");
       label.className = "chat-label";
       label.textContent = "Exemplo fictício de atendimento";
-      const bubbles = examples[button.dataset.demo].map(
-        ([speaker, text], index) => {
-          const bubble = document.createElement("div");
-          bubble.className = `bubble ${speaker}`;
-          bubble.textContent = text;
-          const time = document.createElement("small");
-          time.textContent = index < 2 ? "14:32" : "14:33";
-          bubble.append(time);
-          return bubble;
-        },
-      );
-      demoConversation.replaceChildren(label, ...bubbles);
-      const note = document.querySelector(".agenda-note strong");
-      const caption = document.querySelector(".agenda-note div > span");
-      note.textContent = {
-        booking: "Mais um espaço preenchido.",
-        reschedule: "Mudança de horário organizada.",
-        waitlist: "Uma oportunidade de encaixe.",
-      }[button.dataset.demo];
-      caption.textContent = "Simulação. Nenhuma agenda real é acessada.";
-      const times = {
+      demoConversation.replaceChildren(label);
+      pause.disabled = false;
+      complete.disabled = false;
+      pause.textContent = "Pausar demonstração";
+      document.querySelector(".agenda-note strong").textContent = {
+        booking: "Exemplo de primeira visita.",
+        return: "Exemplo de retorno.",
+        waitlist: "Exemplo de encaixe.",
+      }[key];
+      document.querySelector(".agenda-note div > span").textContent =
+        "Nenhuma agenda real é acessada.";
+      const [day, time] = {
         booking: ["QUI", "15h"],
-        reschedule: ["TER", "16h"],
+        return: ["TER", "16h"],
         waitlist: ["AMANHÃ", "14h"],
-      };
-      const [day, time] = times[button.dataset.demo];
+      }[key];
       document.querySelector(".calendar-icon small").textContent = day;
       document.querySelector(".calendar-icon b").textContent = time;
+      if (reduced.matches) finish();
+      else next();
+    }
+    demoControls.hidden = false;
+    document.querySelector(".demo-playback").hidden = false;
+    demoControls.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-demo]");
+      if (button && examples[button.dataset.demo]) start(button.dataset.demo);
     });
+    pause.addEventListener("click", () => {
+      paused = !paused;
+      stopTimer();
+      pause.textContent = paused
+        ? "Continuar demonstração"
+        : "Pausar demonstração";
+      if (!paused) next();
+    });
+    complete.addEventListener("click", finish);
+    reduced.addEventListener("change", () => {
+      if (reduced.matches) finish();
+    });
+    // Pausa também quando o visitante muda de aba; retoma apenas por ação explícita.
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && cursor < examples[selected].length && !paused)
+        pause.click();
+    });
+    start(selected);
   }
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector("#mobile-nav");
@@ -195,14 +319,22 @@
       }
     });
   }
-  // Evita que o atalho flutuante cubra campos ou o botão de envio no celular.
+  // O atalho não cobre a calculadora, os planos, o formulário ou os contatos.
   const floating = document.querySelector(".floating-whatsapp");
-  const contact = document.querySelector(".contact-section");
-  if (floating && contact && "IntersectionObserver" in window) {
+  if (floating && "IntersectionObserver" in window) {
+    const visibleSections = new Set();
     const visibility = new IntersectionObserver((entries) => {
-      floating.hidden = entries[0].isIntersecting;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleSections.add(entry.target);
+        else visibleSections.delete(entry.target);
+      });
+      floating.hidden = visibleSections.size > 0;
     });
-    visibility.observe(contact);
+    document
+      .querySelectorAll(
+        ".contact-section, .impact-section, .pricing-section, .footer",
+      )
+      .forEach((section) => visibility.observe(section));
   }
   const form = document.querySelector("#lead-form");
   if (!form) return;
