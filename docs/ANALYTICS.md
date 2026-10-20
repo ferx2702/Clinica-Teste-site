@@ -1,4 +1,4 @@
-# Google Analytics 4 — Secretar.IA
+# Google Analytics 4 — AgendIA
 
 ID público configurado em `config.js`: **G-0EGN4M2JEW**.
 O carregamento e o encaminhamento ficam em `analytics.js`, incluído nas três

@@ -1,4 +1,4 @@
-name: Publicar Secretar.IA no GitHub Pages
+name: Publicar AgendIA no GitHub Pages
 # A publicação só ocorre quando o responsável inicia o workflow manualmente.
 on:
   workflow_dispatch:

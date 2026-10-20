@@ -45,7 +45,7 @@ test("navegação, hierarquia, SEO e dados estruturados", async ({
   page.on("pageerror", (e) => failures.push(e.message));
   await open(page);
   await expect(page).toHaveTitle(
-    "Secretária virtual no WhatsApp para clínicas | Secretar.IA",
+    "Secretária virtual no WhatsApp para clínicas | AgendIA",
   );
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("meta[name=description]")).toHaveAttribute(

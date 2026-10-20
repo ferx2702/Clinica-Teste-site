@@ -1,4 +1,4 @@
-# Secretar.IA
+# AgendIA
 
 Landing page em **HTML, CSS e JavaScript puros**, sem framework ou biblioteca
 no navegador. Os arquivos podem ser abertos diretamente em `index.html`.
@@ -43,7 +43,7 @@ Chromium instalado por `npx playwright install --with-deps chromium`.
 - `scripts/build.mjs`: build sem bundler e geração de robots/sitemap.
 - `.github/workflows/pages.yml`: publicação manual no GitHub Pages.
 
-Os dados públicos atuais são **Secretar.IA**, **fergasvi@outlook.com** e
+Os dados públicos atuais são **AgendIA**, **fergasvi@outlook.com** e
 **+55 16 99291-5744**, conforme o novo briefing. A mensagem do CTA é “Olá! Quero
 saber mais sobre a secretária virtual”. O nome dos elementos visíveis é
 atualizado por `config.js`; ao trocar a marca, revise também textos e metadados
@@ -86,7 +86,7 @@ pelo responsável no painel do Google.
    os arquivos HTML/CSS/JS. Não envie `node_modules`, `out/` ou `.env`.
 2. Em **Settings → Pages**, selecione **GitHub Actions**. O repositório precisa
    ser público para o uso gratuito conforme o plano GitHub.
-3. Em **Actions → Publicar Secretar.IA no GitHub Pages → Run workflow**, selecione
+3. Em **Actions → Publicar AgendIA no GitHub Pages → Run workflow**, selecione
    `main`. Aguarde build, testes e deploy; o endereço esperado é
    **https://ferx2702.github.io/Clinica-Teste-site/**.
 
@@ -128,3 +128,7 @@ Em 20/10/2026, foram refinados hero, exemplos interativos fictícios, investimen
 sob consulta e explicação do retorno da demonstração. A análise dos concorrentes
 ficou bloqueada por acesso de rede; não há conclusões verificadas sobre seus sites.
 Veja [auditoria e pendências](docs/REVIEW-2026-10-20.md).
+
+## Marca AgendIA
+
+Logo vetorial, versão branca e ícone em `public/brand/`. Veja [guia da marca](docs/BRAND.md).

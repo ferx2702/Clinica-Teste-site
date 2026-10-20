@@ -1,7 +1,7 @@
 /* Edite aqui a marca, os contatos e o endpoint público. Nunca inclua segredos. */
 window.SECRETARIA_CONFIG = Object.freeze({
   analyticsId: "G-0EGN4M2JEW", // ID público do GA4. Coleta somente após consentimento.
-  name: "Secretar.IA",
+  name: "AgendIA",
   whatsapp: "5516992915744",
   phone: "+5516992915744",
   email: "fergasvi@outlook.com",

@@ -30,6 +30,7 @@ for (const file of [
   if (file.endsWith(".html")) data = data.replaceAll(defaults, url.href);
   await writeFile(`out/${file}`, data);
 }
+await cp("public/brand", "out/public/brand", { recursive: true });
 await cp("public/fonts", "out/public/fonts", { recursive: true });
 await mkdir("out/public/fonts", { recursive: true });
 await cp("docs/licenses/manrope-OFL.txt", "out/public/fonts/LICENSE.txt");
@@ -37,7 +38,7 @@ await cp("docs/licenses/manrope-OFL.txt", "out/public/fonts/LICENSE.txt");
 await mkdir("out/privacidade", { recursive: true });
 await writeFile(
   "out/privacidade/index.html",
-  '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><meta http-equiv="refresh" content="0;url=../privacidade.html"><title>Privacidade | Secretar.IA</title></head><body><a href="../privacidade.html">Política de Privacidade</a></body></html>',
+  '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><meta http-equiv="refresh" content="0;url=../privacidade.html"><title>Privacidade | AgendIA</title></head><body><a href="../privacidade.html">Política de Privacidade</a></body></html>',
 );
 await writeFile(
   "out/robots.txt",

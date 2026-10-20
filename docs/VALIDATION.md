@@ -153,3 +153,7 @@ check passaram; a suíte de 32 testes desktop/mobile foi aprovada. Após ajuste 
 anotação de horário, 4 verificações de oferta e acessibilidade foram repetidas
 com sucesso. A comparação direta com concorrentes está bloqueada por 403 do
 proxy. Evidências e limites em REVIEW-2026-10-20.md.
+
+## Marca AgendIA — 20/10/2026
+
+Nome atualizado na interface, configuração, títulos, metadados, JSON-LD e páginas legais. Logo vetorial original, variação branca, ícone e favicon incluídos no build. `npm run lint`, `npm run check`, `npm run build` e `BASE_PATH=/Clinica-Teste-site npm test` concluídos: 32 testes aprovados. Capturas desktop e mobile revisadas; nenhuma publicação em produção acionada. Os registros anteriores conservam o nome usado à época.

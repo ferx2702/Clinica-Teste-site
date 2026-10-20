@@ -5,7 +5,7 @@ publicação é gratuito para repositórios públicos elegíveis no GitHub.
 
 1. Envie os arquivos revisados ao repositório `ferx2702/Clinica-Teste-site`.
 2. Escolha GitHub Actions em Settings → Pages.
-3. Execute Actions → Publicar Secretar.IA no GitHub Pages → Run workflow, branch main.
+3. Execute Actions → Publicar AgendIA no GitHub Pages → Run workflow, branch main.
 
 O workflow executa npm ci, lint, check, build e testes no subdiretório Pages,
 publicando apenas `out/`. É manual e não dispara no push. A URL esperada é
