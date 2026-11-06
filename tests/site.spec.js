@@ -45,7 +45,7 @@ test("navegação, hierarquia, SEO e dados estruturados", async ({
   page.on("pageerror", (e) => failures.push(e.message));
   await open(page);
   await expect(page).toHaveTitle(
-    "Secretária virtual no WhatsApp para clínicas | AgendIA",
+    "WhatsApp, agendamento e CRM para clínicas | AgendIA",
   );
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("meta[name=description]")).toHaveAttribute(
@@ -341,10 +341,8 @@ test("oferta clara, exemplos locais e investimento sem valores fictícios", asyn
     if (request.method() === "POST") writes.push(request.url());
   });
   await open(page);
-  await expect(page.locator("h1")).toContainText("Secretária virtual");
-  await expect(page.locator(".hero-description")).toContainText(
-    "1 a 2 profissionais",
-  );
+  await expect(page.locator("h1")).toContainText("controle da clínica");
+  await expect(page.locator(".hero-description")).toContainText("CRM");
   const controls = page.getByRole("group", {
     name: "Escolha um exemplo de atendimento",
   });
@@ -379,9 +377,7 @@ test("oferta clara, exemplos locais e investimento sem valores fictícios", asyn
     "Proposta personalizada",
     "Proposta personalizada",
   ]);
-  await expect(page.locator(".person-name")).toHaveText(
-    "[Nome e função a preencher]",
-  );
+  await expect(page.locator(".person-name")).toHaveCount(0);
   await expect(page.locator(".form-panel > p")).toContainText("não confirma");
   expect(writes).toEqual([]);
 });
@@ -420,7 +416,7 @@ test("chat animado: digitação, pausa, reinício e movimento reduzido", async (
   await expect(page.locator(".typing")).toHaveCount(0);
 });
 
-test("calculadora: fórmula, limites, taxa ajustável e nenhuma transmissão", async ({
+test("calculadora: cenário mensal, capacidade, saldo e nenhuma transmissão", async ({
   page,
 }) => {
   const writes = [];
@@ -428,26 +424,69 @@ test("calculadora: fórmula, limites, taxa ajustável e nenhuma transmissão", a
     if (r.method() === "POST") writes.push(r.url());
   });
   await open(page);
-  await expect(page.locator("#impact-total")).toHaveText(/709,50/);
-  await page.locator("#impact-requests").fill("0");
-  await page.locator("#impact-absences").fill("10");
-  await page.locator("#impact-ticket").fill("200");
-  await page.locator("#impact-rate").fill("25");
-  await expect(page.locator("#rate-value")).toHaveText("25%");
-  await expect(page.locator("#impact-total")).toHaveText(/500,00/);
-  await page.locator("#impact-rate").fill("0");
+  await expect(page.locator("#impact-total")).toHaveText(
+    "Preencha os dados da clínica",
+  );
+  await page.locator("#impact-slots").fill("10");
+  await page.locator("#impact-recovered").fill("4");
+  await page.locator("#impact-ticket").fill("150");
+  await expect(page.locator("#impact-total")).toHaveText(/600,00/);
+  await expect(page.locator("#impact-balance")).toBeEmpty();
+  await page.locator("#impact-investment").fill("800");
+  await expect(page.locator("#impact-balance")).toContainText(/-.*200,00/);
+  await page.locator("#impact-investment").fill("200");
+  await expect(page.locator("#impact-balance")).toContainText(/400,00/);
+  await page.locator("#impact-recovered").fill("11");
+  await expect(page.locator("#impact-total")).toHaveText("Confira os valores");
+  await expect(page.locator("#impact-error")).toContainText("superar");
+  await page.locator("#impact-recovered").fill("0");
   await expect(page.locator("#impact-total")).toHaveText(/0,00/);
+  await page.locator("#impact-slots").fill("2.5");
+  await expect(page.locator("#impact-slots")).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  await page.locator("#impact-slots").fill("10");
   await page.locator("#impact-ticket").fill("-1");
   await expect(page.locator("#impact-ticket")).toHaveAttribute(
     "aria-invalid",
     "true",
   );
-  await expect(page.locator("#impact-total")).toHaveText("Confira os valores");
   await page.locator("#impact-ticket").fill("");
-  await expect(page.locator("#impact-error")).not.toBeEmpty();
-  await page.locator("#impact-ticket").fill("200");
-  await expect(page.locator("#impact-error")).toBeEmpty();
+  await expect(page.locator("#impact-total")).toHaveText(
+    "Preencha os dados da clínica",
+  );
+  await expect(page.locator("#impact-balance")).toBeEmpty();
+  await page.locator("#impact-ticket").fill("250.50");
+  await page.locator("#impact-recovered").fill("2");
+  await expect(page.locator("#impact-total")).toHaveText(/501,00/);
+  await page.locator("#impact-investment").fill("");
+  await expect(page.locator("#impact-balance")).toBeEmpty();
   expect(writes).toEqual([]);
+});
+
+test("CRM e vídeo fictício com controles, descrição e arquivos exportados", async ({
+  page,
+  request,
+}) => {
+  await open(page);
+  await expect(page.locator("#crm h3")).toHaveCount(7);
+  await expect(page.locator("#crm")).toContainText("não é um prontuário");
+  const video = page.locator("video");
+  await expect(video).toHaveAttribute("controls", "");
+  expect(await video.getAttribute("autoplay")).toBeNull();
+  await expect(page.locator("#demonstracao")).toContainText("dados fictícios");
+  await expect(page.locator("#demonstracao details")).toContainText(
+    "Ana Exemplo",
+  );
+  for (const asset of [
+    "public/media/agendia-demonstracao.mp4",
+    "public/media/demo-poster.jpg",
+  ]) {
+    const res = await request.get(asset);
+    expect(res.status()).toBe(200);
+    expect((await res.body()).length).toBeGreaterThan(1000);
+  }
 });
 
 test("novas seções, OG e revisão em 360, 768 e desktop", async ({
@@ -487,10 +526,10 @@ test("novas seções, OG e revisão em 360, 768 e desktop", async ({
     const header = await page.locator(".header").boundingBox();
     expect(header).not.toBeNull();
     expect(title.y).toBeGreaterThanOrEqual(header.y + header.height);
-    await page.locator("#impact-rate").focus();
+    await page.locator("#impact-recovered").focus();
     expect(
       await page
-        .locator("#impact-rate")
+        .locator("#impact-recovered")
         .evaluate((el) => getComputedStyle(el).outlineStyle),
     ).not.toBe("none");
     await page.screenshot({
