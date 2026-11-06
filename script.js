@@ -57,37 +57,51 @@
       el.hidden = false;
     }
   });
-  // Simulação local: os dois grupos são distintos; nenhum dado é enviado.
+  // Cenário mensal local. Não presume conversão nem transmite os valores.
   const calculator = document.querySelector("#impact-calculator");
   if (calculator) {
     const total = document.querySelector("#impact-total");
     const breakdown = document.querySelector("#impact-breakdown");
+    const balance = document.querySelector("#impact-balance");
     const error = document.querySelector("#impact-error");
+    const required = ["slots", "recovered", "ticket"];
     function calculate() {
       const fields = [...calculator.querySelectorAll("input")];
       fields.forEach((field) => field.removeAttribute("aria-invalid"));
-      document.querySelector("#rate-value").textContent =
-        `${calculator.elements.rate.value}%`;
+      error.textContent = "";
+      balance.textContent = "";
       const invalid = fields.filter(
-        (field) => !field.checkValidity() || field.value === "",
+        (field) => field.value !== "" && !field.checkValidity(),
       );
+      const slots = Number(calculator.elements.slots.value);
+      const recovered = Number(calculator.elements.recovered.value);
+      if (calculator.elements.slots.value !== "" && recovered > slots) {
+        invalid.push(calculator.elements.recovered);
+      }
       if (invalid.length) {
         invalid.forEach((field) => field.setAttribute("aria-invalid", "true"));
         total.textContent = "Confira os valores";
         breakdown.textContent = "";
         error.textContent =
-          "Preencha valores não negativos dentro dos limites: até 10.000 pedidos ou faltas e R$ 100.000 por consulta. Pedidos e faltas devem ser inteiros.";
+          recovered > slots && calculator.elements.slots.value !== ""
+            ? "As vagas recuperadas não podem superar as vagas ociosas. Ajuste sua hipótese."
+            : "Use valores não negativos. Vagas devem ser inteiras, até 10.000. Valores em reais devem ter até duas casas decimais, até R$ 100.000.";
         return;
       }
-      error.textContent = "";
-      const [requests, ticket, absences, rate] = fields.map((field) =>
-        Number(field.value),
-      );
-      const factor = rate / 100;
-      const missed = requests * 4.33 * ticket * factor;
-      const noShows = absences * ticket * factor;
-      total.textContent = currency.format(missed + noShows);
-      breakdown.textContent = `${currency.format(missed)} em pedidos sem agendamento + ${currency.format(noShows)} em faltas. Estimativa mensal bruta, sem descontar custos.`;
+      if (required.some((name) => calculator.elements[name].value === "")) {
+        total.textContent = "Preencha os dados da clínica";
+        breakdown.textContent =
+          "Informe as vagas ociosas, as vagas que simula recuperar e o valor médio recebido.";
+        return;
+      }
+      const ticket = Number(calculator.elements.ticket.value);
+      const gross = recovered * ticket;
+      total.textContent = currency.format(gross);
+      breakdown.textContent = `${recovered} de ${slots} vagas ociosas × ${currency.format(ticket)} recebidos por consulta. Cenário de um mês.`;
+      if (calculator.elements.investment.value !== "") {
+        const investment = Number(calculator.elements.investment.value);
+        balance.textContent = `Após descontar somente o investimento mensal de ${currency.format(investment)}: ${currency.format(gross - investment)}. Outros custos ainda não foram descontados.`;
+      }
     }
     calculator.addEventListener("input", calculate);
     calculator.addEventListener("submit", (event) => event.preventDefault());

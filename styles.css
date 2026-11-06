@@ -1938,3 +1938,257 @@ section[id] {
     animation: none;
   }
 }
+
+/* CRM: uma agenda legível é o centro da apresentação do produto. */
+.crm-section {
+  background: var(--paper);
+}
+.crm-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.crm-preview {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px #173c3710;
+}
+.crm-preview-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+}
+.crm-product-label {
+  color: #e0eee8;
+  font-size: 12px;
+  font-weight: 400;
+}
+.crm-demo-tag {
+  font-size: 11px;
+  color: #e0eee8;
+  border: 1px solid #6d958b;
+  border-radius: 5px;
+  padding: 2px 8px;
+}
+.crm-preview-body {
+  display: grid;
+  grid-template-columns: 125px minmax(0, 1fr);
+}
+.crm-preview-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid var(--line);
+  padding: 23px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.crm-preview-nav span {
+  padding: 5px 8px;
+}
+.crm-preview-nav .selected {
+  color: var(--green);
+  font-weight: 700;
+  background: var(--pale);
+  border-radius: 5px;
+}
+.crm-agenda {
+  padding: 22px 18px;
+  min-width: 0;
+}
+.crm-agenda-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.crm-agenda-heading span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.crm-columns,
+.crm-calendar-row {
+  display: grid;
+  grid-template-columns: 48px repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  font-size: 11px;
+}
+.crm-columns {
+  padding-bottom: 12px;
+  color: var(--muted);
+}
+.crm-calendar-row {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.crm-appointment {
+  background: #e4f0e9;
+  padding: 10px;
+  border-left: 3px solid #276d55;
+  border-radius: 5px;
+}
+.crm-appointment span,
+.crm-appointment small {
+  display: block;
+  margin-top: 5px;
+}
+.crm-appointment small {
+  font-size: 10px;
+  color: #23503f;
+}
+.crm-appointment-secondary {
+  background: #edf0f8;
+  border-left-color: #526da0;
+}
+.crm-free {
+  padding: 12px 4px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.crm-sync {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.crm-sync span {
+  color: #276d55;
+  margin-right: 4px;
+}
+.crm-explanation h3 {
+  font-size: 28px;
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+.crm-explanation p {
+  margin-bottom: 20px;
+}
+.crm-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 36px;
+  margin-top: 42px;
+}
+.crm-features article {
+  padding: 25px 0;
+  border-top: 1px solid var(--line);
+}
+.crm-features h3 {
+  margin-bottom: 10px;
+}
+.crm-features p {
+  font-size: 14px;
+}
+#impact-balance {
+  font-weight: 600;
+}
+.impact-caveat {
+  font-size: 12px;
+  margin: 18px 0 0;
+}
+.product-video {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 80px;
+  align-items: center;
+}
+.video-copy > p {
+  margin-top: 24px;
+  max-width: 48ch;
+}
+.video-chapters {
+  padding-left: 23px;
+  margin: 30px 0;
+}
+.video-chapters li {
+  padding-left: 8px;
+  margin: 22px 0;
+}
+.video-chapters strong,
+.video-chapters span {
+  display: block;
+}
+.video-chapters span {
+  color: var(--muted);
+  font-size: 14px;
+}
+.product-video-frame {
+  width: 100%;
+  max-width: 340px;
+  justify-self: center;
+  padding: 9px;
+  background: var(--green);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px #173c3718;
+}
+.product-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  background: var(--green);
+}
+@media (max-width: 900px) {
+  .crm-showcase {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .crm-explanation {
+    max-width: 65ch;
+  }
+  .crm-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product-video {
+    gap: 36px;
+  }
+}
+@media (max-width: 600px) {
+  .crm-preview-body {
+    grid-template-columns: 1fr;
+  }
+  .crm-preview-nav {
+    display: none;
+  }
+  .crm-agenda {
+    padding: 18px 12px;
+  }
+  .crm-preview-top {
+    padding: 14px;
+  }
+  .crm-product-label {
+    display: block;
+  }
+  .crm-features {
+    grid-template-columns: 1fr;
+  }
+  .crm-showcase {
+    margin-top: 24px;
+  }
+  .crm-columns,
+  .crm-calendar-row {
+    grid-template-columns: 38px repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .crm-appointment {
+    padding: 8px 6px;
+  }
+  .product-video {
+    grid-template-columns: 1fr;
+  }
+  .product-video-frame {
+    max-width: 300px;
+  }
+}

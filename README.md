@@ -1,3 +1,7 @@
+# Atualização de novembro de 2026
+
+Consulte [REVISAO-CRM-2026-11.md](REVISAO-CRM-2026-11.md) para a versão atual de CRM, demonstração e calculadora, a validação e as pendências de publicação. As notas históricas abaixo que descrevem a antiga calculadora foram substituídas por essa revisão.
+
 # AgendIA
 
 Landing page em **HTML, CSS e JavaScript puros**, sem framework ou biblioteca
