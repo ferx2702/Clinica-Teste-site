@@ -31,6 +31,7 @@ for (const file of [
   await writeFile(`out/${file}`, data);
 }
 await cp("public/brand", "out/public/brand", { recursive: true });
+await cp("public/media", "out/public/media", { recursive: true });
 await cp("public/fonts", "out/public/fonts", { recursive: true });
 await mkdir("out/public/fonts", { recursive: true });
 await cp("docs/licenses/manrope-OFL.txt", "out/public/fonts/LICENSE.txt");
