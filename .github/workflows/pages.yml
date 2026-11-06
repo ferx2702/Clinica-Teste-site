@@ -9,7 +9,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     env:
       SITE_URL: https://ferx2702.github.io/Clinica-Teste-site/
       BASE_PATH: /Clinica-Teste-site
@@ -23,14 +24,16 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm run check
-      - run: npx playwright install --with-deps chromium
+      - name: Instalar navegador dos testes
+        timeout-minutes: 6
+        run: npx playwright install --with-deps chromium
       - run: npm test
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
